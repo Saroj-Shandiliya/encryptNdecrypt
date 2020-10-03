@@ -58,7 +58,6 @@ prompt-toolkit==3.0.5
 psycopg2==2.8.5
 psycopg2-binary==2.8.6
 PuLP==2.1
-PyAudio==0.2.11
 pydub==0.23.1
 Pygments==2.6.1
 pyneqsys==0.5.6
