@@ -12,8 +12,10 @@ comtypes==1.1.7
 cycler==0.10.0
 decorator==4.4.2
 defusedxml==0.6.0
+dj-database-url==0.5.0
 Django==3.0.5
 django-crispy-forms==1.9.1
+django-heroku==0.3.1
 django-phone-field==1.8.0
 dot2tex==2.11.3
 entrypoints==0.3
@@ -54,6 +56,7 @@ Pillow==7.1.1
 prometheus-client==0.7.1
 prompt-toolkit==3.0.5
 psycopg2==2.8.5
+psycopg2-binary==2.8.6
 PuLP==2.1
 PyAudio==0.2.11
 pydub==0.23.1
@@ -89,5 +92,6 @@ urllib3==1.25.8
 wcwidth==0.1.9
 webencodings==0.5.1
 Werkzeug==1.0.1
+whitenoise==5.2.0
 widgetsnbextension==3.5.1
 zipp==3.1.0
