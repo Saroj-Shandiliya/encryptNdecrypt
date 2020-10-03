@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-i=os.getenv('pass')             
+
 
 # Gmail SMTP Server
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
