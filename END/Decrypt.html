@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <meta name="viewport" content="width=device-width,initial-scale=1">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+            <meta charset="UTF-8">
+        <title>Login</title>
+        <style>
+            .feedHeader{
+            width: 100%;
+            height: 45px;
+            position: fixed;
+            top: 0%;
+            left: 0%;
+            color: white;
+            font-family: verdana;
+        }
+        td{
+            color: white;
+        }
+        #table{
+            width: 40%;
+        }
+        #img1{
+            left: 6%;
+            height: 25px;
+            top: 1px;
+            position: fixed;
+            
+        }
+            body{
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+                background-color: black;
+                background-size: cover;
+            }
+            .login-box{
+                
+                top: 0%;
+                left: 0%;
+                color: white;
+            }
+            h1{
+                float: left;
+                font-size: 40px;
+                border-bottom: 6px solid #4caf50;
+                margin-bottom: 50px;
+                padding: 13px 0
+                }
+            .table1{
+                padding: 1%;
+                float: left ;
+                color: white;
+                border-block-color: #4caf50;
+            }
+            .notif{
+                padding: 1%;
+                top: 100px;
+                float:right;
+                color: white;
+                
+            }
+            #name{
+                color: white;
+            }
+            #v2 {
+            border-bottom: 2px solid  #4caf50;
+            width: 94%;
+            position: absolute;
+            left: 3%;
+            margin-left: -3px;
+            top: 70px;
+            opacity: 50%;
+            
+            }
+            .textbox{
+                width: 100%;
+                overflow: hidden;
+                font-size: 20px;
+                padding: 8px 0;
+                margin:  8px 0;
+                border-bottom: 1px solid #4caf50;
+            }
+            .textbox svg{
+                width: 26px;
+                float: left;
+                text-align: center;
+            }
+            .textbox input{
+                border: none;
+                outline: none;
+                background: none;
+                color: white;
+                font-size: 18px;
+                width: 80%;
+                float: left;
+                margin:0 10px;
+            }
+        </style>
+    </head>
+    <body>
+            <div class="feedHeader">
+                    <div id="img1" class="feedHeader"> <img src="End1.png" width="80px"></div>
+                    <div id="v2" class="bodyfeed"></div>
+            </div>
+            
+        <br>
+        <div class="login-box">
+                <h1 id="name">Username:{{user}}</h1>
+            <form class="btn active" action="{% url 'Profiles' rname=user %}",method='Get'>
+                <input type="submit" value="Home" >
+            </form> 
+            {% if o == 1 %}
+            <form action="{% url 'decrypt' rname=user %}", method='POST'>
+                {% csrf_token %}
+                <div class="textbox">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-key-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                {{form1.Security Key}}
+            </div>
+                <input type="submit" value="Verify" >
+            </form>
+            {% elif o == 2 %}
+            <h2>From: {{i}}</h2>
+            <br>
+            <h2>Message: {{j}}</h2>
+
+            {% elif o == 3 %}
+            <h1>{{msg}}</h1>
+            {% endif %}
+        
+        <div class="notif" id="noti">
+            <br>
+            
+            <table class="table table-hover " id="table">
+                <tr>
+                    <td><h2 style="text-align: center;">Notification</h2></td>
+                </tr>
+                    {% for i in noti %}
+                    <tr>
+                        <td>{{i}}</td>
+                    </tr>  
+                    {% endfor %}      
+            </table>
+        </div>
+        <br>
+        {% if o == 0 %}
+    <div class="table1" id='t1'>
+        <h2 style="text-align: center;">Messages</h2>
+        <table class="table table-hover ">
+            {% for i,j in dec %}
+            <tr>
+                <td>{{i}}</td>
+                <td>{{j}}</td>
+                <form action="{% url 'decrypt' rname=user %}" , method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="dec" value='{{j}}'>
+                    <td><button type="submit" class="btn btn-outline-info">Decrypt</button></td>
+                </form>       
+            </tr>
+            {% endfor %}
+        </table>
+        
+    </div>
+    {% endif %}
+        <br>
+    </div>
+    </body>
+</html>

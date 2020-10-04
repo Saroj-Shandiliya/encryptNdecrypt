@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+            <meta charset="UTF-8">
+        <title>Login</title>
+        <style>
+            body{
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+                background-color:black;
+                background-size: cover;
+            }
+            .feedHeaderbase{
+                background-color:rgb(0, 0, 0);
+                width: 100%;
+                height: 69px;
+                position: fixed;
+                top: 0%;
+                left: 0%;
+                color: rgb(0, 0, 0);
+                z-index: 7;
+                font-family: verdana;
+                -webkit-box-shadow: 0 3px 8px rgba(0,0,0,.25);
+            }
+            .feedHeader{
+                
+                width: 100%;
+                height: 45px;
+                position: absolute;
+                top: 0%;
+                left: 0%;
+                color: white;
+                z-index: 7;
+                font-family: verdana;
+            }
+            #img1{
+                float: left;
+                left: 4%;
+                height: 25px;
+                top: 1px;
+                position: fixed;
+            }
+            #v2 {
+            border-bottom: 2px solid  #4caf50;
+            width: 94%;
+            position: fixed;
+            left: 3%;
+            margin-left: -3px;
+            top: 70px;
+            opacity: 50%;
+            z-index: 7;
+            }
+            #v21{
+            border-bottom: 2px solid  #4caf50;
+            width: 94%;
+            position: absolute;
+            left: 3%;
+            margin-left: -3px;
+            top: 97%;
+            opacity: 50%;
+        }
+        #text{
+                    color: #4caf50;
+                    float: left;
+                    left: 9.5%;
+                    height: 25px;
+                    top: 5%;
+                    position: fixed;
+                    font-size: 10px;
+                }
+        .contents{
+            margin-top: 10%;
+            margin-left: 3%;
+            color: white;
+        }
+        .btn{
+                width: 20%;
+                background: none;
+                border: 2px solid #4caf50;
+                color: whitesmoke;
+                padding: 4px;
+                font-size: 18px;
+                cursor: pointer;
+                margin: 12px 0;
+            }
+            @media screen and (max-width:1066px){
+                .contents{
+                    margin-top: 10%;
+                    margin-left: 3%;
+                    color: white
+                }
+            }
+            @media screen and (max-width:1024px){
+                .contents{
+                    margin-top: 10%;
+                    margin-left: 3%;
+                    color: white
+                }
+                #text{
+                        top: 2.5%;
+                        left: 10.5%;
+                    }
+            }
+            @media screen and (max-width:850px){
+                .contents{
+                    margin-top: 17%;
+                    margin-left: 3%;
+                    color: white;
+                }
+            }
+            @media screen and (max-width:770px){
+                .contents{
+                    margin-top: 17%;
+                    margin-left: 3%;
+                    color: white;
+                }
+                #text{
+                        top: 3.4%;
+                        left: 13.0%;
+                    }
+            }
+            @media screen and (max-width:612px){
+                #text{
+                        top: 3.7%;
+                        left: 16.0%;
+                    }
+            }
+            @media screen and (max-width:550px){
+                .contents{
+                    margin-top: 20%;
+                    margin-left: 3%;
+                    color: white;
+                }
+                #text{
+                    top: 5.0%;
+                    left: 16.0%;
+                }
+            }
+            @media screen and (max-width:430px){
+                .contents{
+                    margin-top: 25%;
+                    margin-left: 3%;
+                    color: white;
+                }
+                #text{
+                        top: 5%;
+                        left: 20.0%;
+                    }
+            }
+            @media screen and (max-width:414px){
+                #text{
+                        top: 4.2%;
+                        left: 20.0%;
+                    }
+            }
+            @media screen and (max-width:375px){
+                #text{
+                        top: 4.7%;
+                        left: 21.5%;
+                    }
+            }
+            @media screen and (max-width:360px){
+                #text{
+                    left:21.5%;
+                    top: 5%;
+                }
+            }
+            @media screen and (max-width:320px){
+                .contents{
+                    margin-top: 30%;
+                    margin-left: 3%;
+                    color: white;
+                }
+                .btn{
+                    width: 40%;
+                }
+                #text{
+                    top: 5.8%;
+                    left: 22.7%;
+                    font-size: 9px;
+                    }
+            }
+            @media screen and (max-width:300px){
+                .contents{
+                    margin-top: 30%;
+                    margin-left: 3%;
+                    color: white;
+                }
+                #text{
+                        top: 5.6%;
+                        left: 24.7%;
+                        font-size: 6px;
+                    }
+                .btn{
+                    width: 50%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+            <div class="feedHeaderbase">
+                </div>
+            {% load static %}
+            <div class="feedHeader">
+                <div id="img1" class="feedHeader"><a href="{% url 'start' %}"><img src="{% static 'END/end2.png' %}" alt="EnD logo" width="80px"></a><h10 id="text">ENCRYPT N DECRYPT</h10></div>
+                <div id="v2" class=""></div>
+            </div>
+    <div class="contents">
+        <h1>Logged Out... </h1>
+        <br>
+        <h2>:) Visit us again!!</h2>
+        <br>
+        <form action="{% url 'login' %}", method='GET'>
+                {% csrf_token %}
+                <button class="btn" type="submit" name="">Log In</button>
+        </form>
+        
+    </div>
+        <div id="v21" class=""></div>
+    </body>
+</html>
