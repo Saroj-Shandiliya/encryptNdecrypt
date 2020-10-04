@@ -52,10 +52,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'main.urls'
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,  'templates'),
-    # Add to this list all the locations containing your static files 
-)
+
+
 
 TEMPLATES = [
     {
