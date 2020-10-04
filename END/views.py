@@ -180,7 +180,7 @@ def start(request):
         del request.session['fog']
     if 'for' in request.session:
         del request.session['for']
-    return render(request,'END/start.html')
+    return render(request,'start.html')
 
 def login(request):
     if "End" not in request.session:
