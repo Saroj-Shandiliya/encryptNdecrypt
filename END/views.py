@@ -174,12 +174,7 @@ class nam(forms.Form):                  # email of the decrypter for uud
 # Create your views here.
 
 def start(request):
-    if "End" not in request.session:
-        request.session['End']=[]
-    if "fog" in request.session:
-        del request.session['fog']
-    if 'for' in request.session:
-        del request.session['for']
+    
     return render(request,'start.html')
 
 def login(request):
