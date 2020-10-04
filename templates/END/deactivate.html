@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+            <meta charset="UTF-8">
+        <title>Login</title>
+        <style>
+            body{
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+                background-color:black;
+                background-size: cover;
+            }
+            .feedHeaderbase{
+                background-color:rgb(0, 0, 0);
+                width: 100%;
+                height: 69px;
+                position: fixed;
+                top: 0%;
+                left: 0%;
+                color: rgb(0, 0, 0);
+                z-index: 7;
+                font-family: verdana;
+                -webkit-box-shadow: 0 3px 8px rgba(0,0,0,.25);
+            }
+            .feedHeader{
+                
+                width: 100%;
+                height: 45px;
+                position: absolute;
+                top: 0%;
+                left: 0%;
+                color: white;
+                z-index: 7;
+                font-family: verdana;
+            }
+            #img1{
+                float: left;
+                left: 6%;
+                height: 25px;
+                top: 1px;
+                position: fixed;
+            }
+            #v2 {
+            border-bottom: 2px solid  #4caf50;
+            width: 94%;
+            position: fixed;
+            left: 3%;
+            margin-left: -3px;
+            top: 70px;
+            opacity: 50%;
+            z-index: 7;
+            }
+            #v21{
+            border-bottom: 2px solid  #4caf50;
+            width: 94%;
+            position: absolute;
+            left: 3%;
+            margin-left: -3px;
+            top: 97%;
+            opacity: 50%;
+        }
+        .contents{
+            margin-top: 10%;
+            margin-left: 3%;
+            color: white;
+        }
+        .btn{
+                width: 20%;
+                background: none;
+                border: 2px solid #4caf50;
+                color: whitesmoke;
+                padding: 4px;
+                font-size: 18px;
+                cursor: pointer;
+                margin: 12px 0;
+            }
+            @media screen and (max-width:1066px){
+                .contents{
+                    margin-top: 10%;
+                    margin-left: 3%;
+                    color: white
+                }
+            }
+            @media screen and (max-width:1024px){
+                .contents{
+                    margin-top: 10%;
+                    margin-left: 3%;
+                    color: white
+                }
+            }
+            @media screen and (max-width:850px){
+                .contents{
+                    margin-top: 17%;
+                    margin-left: 3%;
+                    color: white;
+                }
+            }
+            @media screen and (max-width:700px){
+                .contents{
+                    margin-top: 17%;
+                    margin-left: 3%;
+                    color: white;
+                }
+            }
+            @media screen and (max-width:540px){
+                .contents{
+                    margin-top: 20%;
+                    margin-left: 3%;
+                    color: white;
+                }
+            }
+            @media screen and (max-width:430px){
+                .contents{
+                    margin-top: 25%;
+                    margin-left: 3%;
+                    color: white;
+                }
+            }
+            @media screen and (max-width:320px){
+                .contents{
+                    margin-top: 30%;
+                    margin-left: 3%;
+                    color: white;
+                }
+                .btn{
+                    width: 40%;
+                }
+            }
+            @media screen and (max-width:260px){
+                .contents{
+                    margin-top: 30%;
+                    margin-left: 3%;
+                    color: white;
+                }
+                .btn{
+                    width: 50%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+            <div class="feedHeaderbase">
+                </div>
+            {% load static %}
+            <div class="feedHeader">
+                <div id="img1" class="feedHeader"><a href="{% url 'start' %}"><img src="{% static 'END/end2.png' %}" alt="EnD logo" width="80px"></div>
+                <div id="v2" class=""></div>
+            </div>
+    <div class="contents">
+        <h1>Account Deactivated.</h1>
+        <br>
+        <h2>:) Log in to</h2>
+        <br>
+        <h2>Activate Account.</h2>
+        <form action="{% url 'login' %}", method='GET'>
+                {% csrf_token %}
+                <button class="btn" type="submit" name="">Log In</button>
+        </form>
+        
+    </div>
+        <div id="v21" class=""></div>
+    </body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+            <meta charset="UTF-8">
+        <title>Login</title>
+        <style>
+            body{
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+                background-color:black;
+                background-size: cover;
+            }
+            .feedHeaderbase{
+                background-color:rgb(0, 0, 0);
+                width: 100%;
+                height: 69px;
+                position: fixed;
+                top: 0%;
+                left: 0%;
+                color: rgb(0, 0, 0);
+                z-index: 7;
+                font-family: verdana;
+                -webkit-box-shadow: 0 3px 8px rgba(0,0,0,.25);
+            }
+            .feedHeader{
+                
+                width: 100%;
+                height: 45px;
+                position: absolute;
+                top: 0%;
+                left: 0%;
+                color: white;
+                z-index: 7;
+                font-family: verdana;
+            }
+            #img1{
+                float: left;
+                left: 6%;
+                height: 25px;
+                top: 1px;
+                position: fixed;
+            }
+            #v2 {
+            border-bottom: 2px solid  #4caf50;
+            width: 94%;
+            position: fixed;
+            left: 3%;
+            margin-left: -3px;
+            top: 70px;
+            opacity: 50%;
+            z-index: 7;
+            }
+            #v21{
+            border-bottom: 2px solid  #4caf50;
+            width: 94%;
+            position: absolute;
+            left: 3%;
+            margin-left: -3px;
+            top: 97%;
+            opacity: 50%;
+        }
+        .contents1{
+            margin-top: 10%;
+            margin-left: 3%;
+            color: white;
+        }
+        .contents1 h1{
+            width: 280px;
+            font-size: 40px;
+            border-bottom: 6px solid #4caf50;
+            margin-bottom: 50px;
+            padding: 13px 0
+        }
+        .btn{
+                width: 20%;
+                background: none;
+                border: 2px solid #4caf50;
+                color: whitesmoke;
+                padding: 4px;
+                font-size: 18px;
+                cursor: pointer;
+                margin: 12px 0;
+            }
+            nav{
+                position: fixed;
+                background: #000000;
+                height:70px;
+                width: 100%;
+            }
+            
+            .notif h1 a{
+                color: white;
+                text-transform: uppercase;
+                text-decoration: none;
+                transition: 0.4s;  
+            }
+            a.active,a:hover{
+                color: #4caf50;
+            }
+            nav ul{
+                float: right;
+                margin-right: 20px;
+            }
+            nav ul li{
+                display: inline-block;
+                line-height: 80px;
+                margin: 0 15px;
+            }
+            nav ul li a{
+                color: white;
+                font-size: 17px;
+                padding: 0px 10px;
+                text-transform: uppercase;
+                text-decoration: none;
+                transition: 0.4s;
+            }
+            a.active,a:hover{
+                color: #4caf50;
+            }
+            .checkbtn{
+                font-size: 30px;
+                color:white;
+                float: right;
+                line-height: 80px;
+                margin-right: 40px;
+                cursor: pointer;
+                display: none;
+            }
+            #check{
+                display: none;
+            }
+            #check1{
+                display: none;
+            }
+            @media screen and (max-width:1066px){
+                .contents1{
+                    margin-top: 10%;
+                    margin-left: 3%;
+                    color: white
+                }
+            }
+            @media screen and (max-width:1024px){
+                .contents1{
+                    margin-top: 10%;
+                    margin-left: 3%;
+                    color: white
+                }
+            }
+            @media screen and (max-width:850px){
+                nav ul li a{
+                    font-size: 16px;
+                }
+                .checkbtn{
+                    display: block;
+                }
+                ul{
+                    position: fixed;
+                    width:100%;
+                    height: 100vh;
+                    background: #000000;
+                    top: 65px;
+                    left:-100%;
+                    text-align: center;
+                    transition: all .5s;
+                }
+                nav ul li{
+                    display: block;
+                    margin: 50px 0;
+                    line-height: 30px;
+                }
+                nav ul li a{
+                    font-size: 20px;
+                }
+                a:hover,a.active{
+                    background: none;
+                    color: #4caf50;
+                }
+                #check:checked ~ ul{
+                    left: 0;
+                }
+                .contents1{
+                    margin-top: 17%;
+                    margin-left: 3%;
+                    color: white;
+                }
+            }
+            @media screen and (max-width:700px){
+                .checkbtn{
+                    display: block;
+                }
+                ul{
+                    position: fixed;
+                    width:100%;
+                    height: 100vh;
+                    background: #000000;
+                    top: 65px;
+                    left:-100%;
+                    text-align: center;
+                    transition: all .5s;
+                }
+                nav ul li{
+                    display: block;
+                    margin: 50px 0;
+                    line-height: 30px;
+                }
+                nav ul li a{
+                    font-size: 20px;
+                }
+                a:hover,a.active{
+                    background: none;
+                    color: #4caf50;
+                }
+                #check:checked ~ ul{
+                    left: 0;
+                }
+                #v21{
+                    border-bottom: 2px solid  #4caf50;
+                    width: 94%;
+                    position: relative;
+                    left: 3%;
+                    margin-left: -3px;
+                    top: 650px;
+                    opacity: 100%;
+                }
+                .contents1{
+                    margin-top: 17%;
+                    margin-left: 3%;
+                    color: white;
+                }
+            }
+            @media screen and (max-width:540px){
+                .contents1{
+                    margin-top: 20%;
+                    margin-left: 3%;
+                    color: white;
+                }
+                .btn{
+                    width: 70%;
+                }
+            }
+            @media screen and (max-width:430px){
+                nav ul li a{
+                    font-size: 16px;
+                }
+                .contents1{
+                    margin-top: 25%;
+                    margin-left: 3%;
+                    color: white;
+                }
+                .btn{
+                    width: 70%;
+                }
+            }
+            @media screen and (max-width:320px){
+                nav ul li a{
+                    font-size: 16px;
+                }
+                .contents1{
+                    margin-top: 30%;
+                    margin-left: 3%;
+                    color: white;
+                }
+                .btn{
+                    width: 70%;
+                }
+            }
+            @media screen and (max-width:260px){
+                .contents1{
+                    margin-top: 30%;
+                    margin-left: 3%;
+                    color: white;
+                }
+                .btn{
+                    width: 80%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+            <div class="feedHeaderbase">
+                </div>
+            {% load static %}
+            <div class="feedHeader">
+                <div id="img1" class="feedHeader"> <img src="{% static 'END/End1.png' %}" width="80px"></div>
+                <div id="v2" class=""></div>
+                <nav>
+                    <input type="checkbox" id="check">
+                    <label for="check" class="checkbtn">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                              </svg>
+                    </label>
+                    <form action="{% url 'notification' rname=user %}" method="GET">
+                        <input type="submit" value="shan" id="check1">
+                                <label for="check1" class="checkbtn">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bell" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2z"/>
+                                            <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+                                          </svg>
+                                </label>
+                    </form>
+                    <ul>
+                        <li><a href="{% url 'Profiles' rname=user %}" >Home</a></li>
+                        <li><a href="{% url 'encrypt' rname=user %}">Encrypt</a></li>
+                        <li><a href="{% url 'manage' rname=user %}">Manage</a></li>
+                        <li><a href="{% url 'about' rname=user %}"class="active">About</a></li>
+                        <li><a href="{% url 'logout' %}">Log out</a></li>
+                    </ul>
+                    <div id="v21" class=""></div>
+                </nav>
+            </div>
+    <div class="contents1">
+        <h1>About</h1>
+        <br>
+        <p><h2>Encrypt n Decrypt</h2> is all about Freedom. We here at EnD value freedom and control over things that are ours.
+           As privacy over internet is a greater concern in todays generation and data privacy is a matter that we all
+           talk about. We here at EnD proudly provide a messaging platform that lets the users control over the messages they
+           send.And these messages are encrypted in a way that they can be decrypted only once and so once these messages are
+           decrypted they cannot be decrypted again and so these encrypted messages once decrypted becomes nothing more than 
+           just some random text.
+           <br>
+           <br>
+           <h2>How does it work?</h2>Once messages are created from the EnD platform these messages are encrypted via an 
+           algorithm these algorithm encrypts these messages in a way thet they can only be decrypted once. Once the 
+           message is decrypted those encrypted message remains of no use to anyone and is just a peice of random 
+           text.
+           <br>
+           <br>
+           <h2>How to use EnD?</h2>Once a user joins the EnD family the user has various methods in which he/she can create 
+           messages.
+           <br>
+           To create message the user goes the navigation menu and selects the encrypt menu ,the user is then prompted with 
+           a create message form the users type the message there and then select the type of message the user wants to create:
+           <br>
+           <h4>1.User ID(Direct):</h4>In this method the user can send message to another EnD family member using their registered 
+           email id and once created the other member can decrypt that message.
+           <br>
+            <h4>2.User ID(via Key):</h4>This method is similar to the first method just the difference is that in this method
+            the messages are created using a secure key whih the other member knows about as before decrypting that message it will 
+            be required.
+            <br>
+            <h4>3.Guest ID:</h4>In this method a member can create a message using a secure key not for any other member but a guest 
+            someone who is not a member of EnD family a Guest ID is given once the message is created and the Geust ID is to be entered 
+            in the Guest ID page with the key to acess that message.(These message can be viewed only once)And once viewed the Guest ID gets 
+            expired.
+            <br>
+            <h4>4.Random</h4>In this method a member creates a message without a secure key for random people or a group of people.
+            This message is available of a day and gets expired once the day ends midnight.Once the message is created a random encrypted message is generated 
+            which can be used to enter the random room and see the random message.
+        </p>
+        <form action="{% url 'feedu' rname=user %}", method='GET'>
+                {% csrf_token %}
+                <button class="btn" type="submit" name="">FeedBack</button>
+        </form>
+        
+    </div>
+    
+    </body>
+</html>
