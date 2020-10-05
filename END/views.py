@@ -400,6 +400,7 @@ def signup(request):
                 no='0'
                 print('6')
                 tim=str(datetime.date.today())
+                print("6")
                 s="INSERT INTO sg1 (uuidu,usn,eml,seal,timec,logn,verify,vcode) "
                 s+="VALUES ('"+ud+"','"+us+"','"+eml+"',9089,'"+tim+"','"+no+"','NT','"+emvf+"');"
                 db.execute(s)
