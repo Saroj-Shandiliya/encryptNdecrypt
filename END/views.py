@@ -46,7 +46,9 @@ eml=''
 
 #Engine created for SQLalchemy
 
-engine=create_engine('postgres://sqefyezhzaxyao:5b6eac2418989f51feeee3bc501df4254757780f093353348c9508ef7e051fb0@ec2-54-224-175-142.compute-1.amazonaws.com:5432/dfinfo5npheog6')
+db=os.enviro['HEROKU_POSTGRESQL_GREEN_URL']
+
+engine=create_engine(db)
 db=scoped_session(sessionmaker(bind=engine))
 
 
