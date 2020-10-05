@@ -218,7 +218,7 @@ def login(request):
                     print(name)
                     usn=''
                     q=request.session['End']
-                    s="SELECT usn FROM SG1 WHERE uuidu='"+q[0]+"';"
+                    s="SELECT usn FROM sg1 WHERE uuidu='"+q[0]+"';"
                     pw=db.execute(s).fetchall()
                     pw=str(pw)
                     j=len(pw)-4
@@ -299,7 +299,7 @@ def login(request):
 
 def check(name,pwd):
     ran=''
-    s="SELECT uuidu FROM  SG1 WHERE "
+    s="SELECT uuidu FROM  sg1 WHERE "
     s +="eml='"+name+"';"
     pw=db.execute(s).fetchall()
     if pw == [] :
@@ -314,7 +314,7 @@ def check(name,pwd):
         s +="uuidu='"+q+"';"
         pw=db.execute(s).fetchall()
         pas=cutter(pw)
-        s="SELECT seal FROM  SG1 WHERE "
+        s="SELECT seal FROM  sg1 WHERE "
         s +="eml='"+name+"';"
         pw=db.execute(s).fetchall()
         seal=cutter(pw)
@@ -332,11 +332,11 @@ def check(name,pwd):
                     ran=''
                     return ox,q,ran,ch
             if seal=='86':
-                s="UPDATE SG1 SET seal='9089' WHERE eml='"+name+"';"
+                s="UPDATE sg1 SET seal='9089' WHERE eml='"+name+"';"
                 db.execute(s)
                 db.commit()
             ran=str(random.randint(1111111,9999999))
-            s="UPDATE SG1 SET logc='"+ran+"' "
+            s="UPDATE sg1 SET logc='"+ran+"' "
             s+="WHERE uuidu='"+q+"';"
             db.execute(s)
             db.commit()
@@ -351,13 +351,13 @@ def check(name,pwd):
                 if h>2:
                     no=no+pw[h]
             num=int(no)+1
-            s="UPDATE SG1 SET logn='"+str(num)+"' "
+            s="UPDATE sg1 SET logn='"+str(num)+"' "
             s+="WHERE uuidu='"+q+"';"
             db.execute(s)
             db.commit()
             tim=str(datetime.datetime.now())
             tim=str(tim)
-            s="UPDATE SG1 SET timee='"+tim+"' "
+            s="UPDATE sg1 SET timee='"+tim+"' "
             s+="WHERE uuidu='"+q+"';"
             db.execute(s)
             db.commit()
@@ -400,7 +400,7 @@ def signup(request):
                 no='0'
                 print('6')
                 tim=str(datetime.date.today())
-                s="INSERT INTO SG1 (uuidu,usn,eml,seal,timec,logn,verify,vcode) "
+                s="INSERT INTO sg1 (uuidu,usn,eml,seal,timec,logn,verify,vcode) "
                 s+="VALUES ('"+ud+"','"+us+"','"+eml+"',9089,'"+tim+"','"+no+"','NT','"+emvf+"');"
                 db.execute(s)
                 db.commit()
@@ -408,7 +408,7 @@ def signup(request):
                 send_mail("Verification code [EnD].","Your EnD verification code |"+emvf+"|.","encryptndecrypt@gmail.com",[eml],    # This is a list
                     fail_silently = False     # Set this to False so that you will be noticed in any exception raised
                     )
-                s="INSERT INTO P1 (uuidu,pwd) "
+                s="INSERT INTO p1 (uuidu,pwd) "
                 s+="VALUES ('"+ud+"','"+pwd+"');"
                 db.execute(s)
                 db.commit()
