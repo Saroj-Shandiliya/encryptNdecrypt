@@ -51,6 +51,9 @@ print(os.getenv("HEROKU_POSTGRESQL_GREEN_URL"))
 engine=create_engine(os.getenv('HEROKU_POSTGRESQL_GREEN_URL'))
 db=scoped_session(sessionmaker(bind=engine))
 
+s="select * from sg1;"
+pw=db.execute(s).fetchall()
+print(pw)
 
 appname='END'
 
