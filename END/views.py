@@ -430,8 +430,10 @@ def signup(request):
                 'form':sign1(),
             })
     except:
+        msg="Error occured!!"
         return render(request,'END/signup.html',{
             'form':sign1(),
+            'msg':msg,
         })
 
 def home(request,rname):
