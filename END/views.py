@@ -404,6 +404,8 @@ def signup(request):
                 print('6')
                 tim=str(datetime.date.today())
                 print("6")
+                print(ud)
+                print(tim)
                 s="INSERT INTO sg1 (uuidu,usn,eml,seal,timec,logn,verify,vcode) "
                 s+="VALUES ('"+ud+"','"+us+"','"+eml+"',9089,'"+tim+"','"+no+"','NT','"+emvf+"');"
                 db.execute(s)
