@@ -390,7 +390,9 @@ def signup(request):
                 print('3')
                 s="SELECT verify FROM  SG1 WHERE "
                 s +="eml='"+eml+"';"
+                print("1step")
                 pw=db.execute(s).fetchall()
+                print(pw)
                 print('4')
                 if pw != []:
                     ed=cutter(pw)
@@ -400,6 +402,11 @@ def signup(request):
                             'msg':msg,
                             'form':sign1(),
                         })
+                    elif ed =='NT':
+                        s="DELETE FROM  SG1 WHERE "
+                        s +="eml='"+eml+"';"
+                        pw=db.execute(s)
+                        db.commit()
                 print('5')
                 emvf=str(random.randint(111111,999999))
                 ud=str(uuid.uuid4())
