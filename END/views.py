@@ -305,6 +305,7 @@ def check(name,pwd):
     s="SELECT uuidu FROM  sg1 WHERE "
     s +="eml='"+name+"';"
     pw=db.execute(s).fetchall()
+    print(pw)
     if pw == [] :
         ox=1
         q=''
@@ -317,6 +318,7 @@ def check(name,pwd):
         s +="uuidu='"+q+"';"
         pw=db.execute(s).fetchall()
         pas=cutter(pw)
+        print(pas)
         s="SELECT seal FROM  sg1 WHERE "
         s +="eml='"+name+"';"
         pw=db.execute(s).fetchall()
