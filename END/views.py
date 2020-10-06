@@ -313,7 +313,9 @@ def check(name,pwd):
         ch=False
         return ox,q,ran,ch
     else:
+        print(11)
         q=cutter(pw)
+        print(q)
         s="SELECT pwd FROM p1 WHERE "
         s +="uuidu='"+q+"';"
         pw=db.execute(s).fetchall()
