@@ -1327,6 +1327,7 @@ def verify(request):
             print(f'{ver}')
             s="SELECT vcode FROM SG1 WHERE eml='"+q[0]+"';"
             pw=db.execute(s).fetchall()
+            print(pw)
             pw=cutter(pw)
             print(f'{pw}')
             if ver==pw:
