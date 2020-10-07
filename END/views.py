@@ -616,7 +616,7 @@ def encrypt(request,rname):
                                 s="INSERT INTO "+fln+" (uuide,timeec,mang,emld,acc) VALUES ('"+ud+"','"+timeec+"','uud1','"+usd+"','9089');"
                                 db.execute(s)                           #inserting into user encfile 
                                 db.commit()
-                                s="INSERT INTO uud1 (uuide,enct,enck,enctm,emld,acc) VALUES('"+ud+"','"+enc+"','"+key+"','"+tim+"','"+usd+"','9089');"
+                                s="INSERT INTO uud1 (uuidu,enct,enck,enctm,emld,acc) VALUES('"+ud+"','"+enc+"','"+key+"','"+tim+"','"+usd+"','9089');"
                                 db.execute(s)                           #inserting in main enc file 
                                 db.commit()
                                 s="INSERT INTO "+k+" (uuide,mang,emle,acc) VALUES ('"+ud+"','uud1','"+eml+"','9089');"
@@ -694,7 +694,7 @@ def encrypt(request,rname):
                                 s="INSERT INTO "+fln+" (uuide,timeec,mang,emld,acc) VALUES ('"+ud+"','"+timeec+"','uus1','"+usd+"','9089');"
                                 db.execute(s)                            #inserting into users enc file
                                 db.commit()
-                                s="INSERT INTO uus1 (uuide,enct,enck,enctm,emld,sa,acc) VALUES('"+ud+"','"+enc+"','"+key+"','"+tim+"','"+usd+"','"+sa+"','9089');"
+                                s="INSERT INTO uus1 (uuidu,enct,enck,enctm,emld,sa,acc) VALUES('"+ud+"','"+enc+"','"+key+"','"+tim+"','"+usd+"','"+sa+"','9089');"
                                 db.execute(s)                           #inserting in main enc file 
                                 db.commit()
                                 s="INSERT INTO "+k+" (uuide,mang,emle,acc) VALUES ('"+ud+"','uus1','"+eml+"','9089');"
@@ -752,7 +752,7 @@ def encrypt(request,rname):
                                     s="INSERT INTO "+fln+" (uuide,timeec,mang,emld,acc) VALUES ('"+ud+"','"+timeec+"','ud1','"+usd+"','9089');"
                                     db.execute(s)                            #inserting into users enc file
                                     db.commit()
-                                    s="INSERT INTO ug1 (uuide,enct,enck,enctm,gid,sa,wrn,encc,acc) VALUES ('"+ud+"','"+enc+"','"+key+"','"+tim+"','"+usd+"','"+sa+"','0','"+eml+"','9089');"
+                                    s="INSERT INTO ug1 (uuidu,enct,enck,enctm,gid,sa,wrn,encc,acc) VALUES ('"+ud+"','"+enc+"','"+key+"','"+tim+"','"+usd+"','"+sa+"','0','"+eml+"','9089');"
                                     db.execute(s)                           #inserting in main enc file
                                     db.commit()
                                     msg='Message Created!!'
@@ -796,7 +796,7 @@ def encrypt(request,rname):
                             s="INSERT INTO "+fln+" (uuide,timeec,mang,emld,acc) VALUES ('"+ud+"','"+timeec+"','ur1','"+usd+"','9089');"
                             db.execute(s)                            #inserting into users enc file
                             db.commit()
-                            s="INSERT INTO ur1 (uuide,enct,enck,enctm,time,encc,acc) VALUES ('"+ud+"','"+enc+"','"+key+"','"+tim+"','"+ti+"','"+eml+"','9089');"
+                            s="INSERT INTO ur1 (uuidu,enct,enck,enctm,time,encc,acc) VALUES ('"+ud+"','"+enc+"','"+key+"','"+tim+"','"+ti+"','"+eml+"','9089');"
                             db.execute(s)                           #inserting in main enc file
                             db.commit()
                             msg='Message Created!!'
@@ -970,7 +970,7 @@ def decrypt(request,rname):
                                 if form.is_valid():
                                     print('here')
                                     ke=form.cleaned_data['Key']
-                                    s="SELECT sa FROM uus1 WHERE uuide='"+w[1]+"';"
+                                    s="SELECT sa FROM uus1 WHERE uuidu='"+w[1]+"';"
                                     pw=db.execute(s).fetchall()         #getting keys
                                     sa=cutter(pw)
                                     bol= sa==ke                     #comparing security answers/keys
@@ -1536,7 +1536,7 @@ def guest(request):
                 key=cutter(pw)
                 if ke==key:
                     mag='ug1'
-                    s="SELECT uuide FROM ug1 WHERE gid='"+idg+"' AND sa='"+ke+"';"
+                    s="SELECT uuidu FROM ug1 WHERE gid='"+idg+"' AND sa='"+ke+"';"
                     pw=db.execute(s).fetchall()         #getting the uuide of the enc
                     uid=cutter(pw)
                     de=''
@@ -1545,7 +1545,7 @@ def guest(request):
                     s="SELECT encc FROM ug1 WHERE gid='"+idg+"' AND sa='"+ke+"';"
                     pw=db.execute(s).fetchall()     #getting the email of the creator
                     eml=cutter(pw)
-                    s="UPDATE "+mag+" SET acc='9862' WHERE uuide='"+uid+"';"
+                    s="UPDATE "+mag+" SET acc='9862' WHERE uuidu='"+uid+"';"
                     db.execute(s)                   #updating acc status in the ug1 file
                     db.commit()
                     s="SELECT enc FROM fn1 WHERE eml='"+eml+"';"
@@ -1575,10 +1575,10 @@ def guest(request):
                     pw=db.execute(s).fetchall()         #getting the wrn of the enc
                     wrn=cutter(pw)
                     if wrn=='3':
-                        s="SELECT uuide FROM ug1 WHERE gid='"+idg+"';"
+                        s="SELECT uuideu FROM ug1 WHERE gid='"+idg+"';"
                         pw=db.execute(s).fetchall()         #getting the uuide of the enc
                         uid=cutter(pw)
-                        s="UPDATE ug1 SET acc='9862' WHERE uuide='"+uid+"';"
+                        s="UPDATE ug1 SET acc='9862' WHERE uuidu='"+uid+"';"
                         db.execute(s)                   #updating acc status in the ug1 file
                         s="SELECT encc FROM ug1 WHERE gid='"+idg+"';"
                         pw=db.execute(s).fetchall()     #getting the email of the creator
@@ -1636,7 +1636,7 @@ def randomguest(request):
         form=rad(request.POST)
         if form.is_valid():
             man=form.cleaned_data['Encrypted_Message']
-            s="Select acc FROM ur1 WHERE uuide='"+man+"';"
+            s="Select acc FROM ur1 WHERE uuidu='"+man+"';"
             pw=db.execute(s).fetchall()
             if pw == []:
                 msg=':(   Invalid Input!!'
@@ -1655,15 +1655,15 @@ def randomguest(request):
                     'oka':oka
                 })
             else:
-                s="Select time FROM ur1 WHERE uuide='"+man+"';"
+                s="Select time FROM ur1 WHERE uuidu='"+man+"';"
                 pw=db.execute(s).fetchall()
                 tim=cutter(pw)
                 td=str(datetime.date.today())
                 if td>tim:
-                    s="Select encc FROM ur1 WHERE uuide='"+man+"';"
+                    s="Select encc FROM ur1 WHERE uuidu='"+man+"';"
                     pw=db.execute(s).fetchall()
                     eml=cutter(pw)
-                    s="UPDATE ur1 SET acc='9862' WHERE uuide='"+man+"';"
+                    s="UPDATE ur1 SET acc='9862' WHERE uuidu='"+man+"';"
                     db.execute(s)                   #updating acc status in the ug1 file
                     db.commit()
                     s="UPDATE "+eml+" SET acc='9862' WHERE uuide='"+man+"';"
@@ -1677,14 +1677,14 @@ def randomguest(request):
                         'oka':oka
                     })
                 elif td==tim:
-                    s="Select enct FROM ur1 WHERE uuide='"+man+"';"
+                    s="Select enct FROM ur1 WHERE uuidu='"+man+"';"
                     pw=db.execute(s).fetchall()
                     enct=cutter(pw)
                     mag='ur1'
                     de=''
                     eml=''
                     dec,emle=decryptxt(man,mag,de,eml)
-                    s="SELECT encc FROM ur1 WHERE uuide='"+man+"';"
+                    s="SELECT encc FROM ur1 WHERE uuidu='"+man+"';"
                     pw=db.execute(s).fetchall()     #getting the email of the creator
                     eml=cutter(pw)
                     s="SELECT enc FROM fn1 WHERE eml='"+eml+"';"
@@ -2055,16 +2055,16 @@ def decryptxt(dect,mag,de,eml):
     y=0          #second increment
     fn=''
     emle=''
-    s="SELECT enct FROM "+mag+" WHERE uuide='"+dect+"';"
+    s="SELECT enct FROM "+mag+" WHERE uuidu='"+dect+"';"
     pw=db.execute(s).fetchall()
     enct=cutter(pw)
     print(dect)
     print(enct)
-    s="SELECT enck FROM "+mag+" WHERE uuide='"+dect+"';"
+    s="SELECT enck FROM "+mag+" WHERE uuidu='"+dect+"';"
     pw=db.execute(s).fetchall()
     enck=cutter(pw)
     print(enck)
-    s="SELECT enctm FROM "+mag+" WHERE uuide='"+dect+"';"
+    s="SELECT enctm FROM "+mag+" WHERE uuidu='"+dect+"';"
     pw=db.execute(s).fetchall()
     enctme=cutter(pw)
     print(enctme)
@@ -2153,7 +2153,7 @@ def decryptxt(dect,mag,de,eml):
             orm=1
     if mag=='uud1' or mag=='uus1':
         tm=str(datetime.datetime.now())
-        s="UPDATE "+mag+" SET acc='9862' WHERE uuide='"+dect+"';"
+        s="UPDATE "+mag+" SET acc='9862' WHERE uuidu='"+dect+"';"
         db.execute(s)                   #updating the main file for status changes
         db.commit()
         s="UPDATE "+de+" SET acc='9862', timedc='"+tm+"' WHERE uuide='"+dect+"';"
