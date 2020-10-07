@@ -2182,12 +2182,15 @@ def decryptxt(dect,mag,de,eml):
 
 def cutter(pw):                         #cuts messages recieved via SQL
     pw=str(pw)
+    print(pw)
     j=len(pw)-4
+    print(j)
     k=''
     h=0
     for h in range(j):
         if h>2:
             k=k+pw[h]
+    print(k)
     return k
 
 def reverse1(q):                      #reverse the messages
