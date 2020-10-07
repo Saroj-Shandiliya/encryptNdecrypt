@@ -62,11 +62,11 @@ appname='END'
 
 #Forms
 class sign1(forms.Form):
-    Username=forms.CharField(label='Username',max_length=20,widget=forms.TextInput(attrs={
+    Username=forms.CharField(label='Username',max_length=10,widget=forms.TextInput(attrs={
         'type':'text',
         'placeholder':'Username',
         'pattern':"[A-Za-z0-9!@#$%&*()_-]{2,20}",
-        'title':'No spaces in between',
+        'title':'No spaces in between, Maximum length:10',
     }))
     Email=forms.EmailField(label='Email',max_length=300,widget=forms.EmailInput(attrs={
         'type':'email',
@@ -143,7 +143,7 @@ class Enc(forms.Form):                   # encrypt form
     Type=forms.ChoiceField(label='Method',required='True',choices = lis)
     
 class gue(forms.Form):                  # guest id 
-    Guest_ID=forms.CharField(label='Guest',max_length=32,widget=forms.TextInput(attrs={
+    Guest_ID=forms.CharField(label='Guest',max_length=50,widget=forms.TextInput(attrs={
         'type':'text',
         'placeholder':'Guest Id'
     }))
