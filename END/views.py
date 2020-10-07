@@ -1683,6 +1683,10 @@ def randomguest(request):
                     mag='ur1'
                     de=''
                     eml=''
+                    print(man)
+                    print(mag)
+                    print(de)
+                    print(eml)
                     dec,emle=decryptxt(man,mag,de,eml)
                     s="SELECT encc FROM ur1 WHERE uuidu='"+man+"';"
                     pw=db.execute(s).fetchall()     #getting the email of the creator
@@ -2055,6 +2059,7 @@ def decryptxt(dect,mag,de,eml):
     y=0          #second increment
     fn=''
     emle=''
+    print(1)
     s="SELECT enct FROM "+mag+" WHERE uuidu='"+dect+"';"
     pw=db.execute(s).fetchall()
     enct=cutter(pw)
@@ -2063,6 +2068,7 @@ def decryptxt(dect,mag,de,eml):
     s="SELECT enck FROM "+mag+" WHERE uuidu='"+dect+"';"
     pw=db.execute(s).fetchall()
     enck=cutter(pw)
+    print(2)
     print(enck)
     s="SELECT enctm FROM "+mag+" WHERE uuidu='"+dect+"';"
     pw=db.execute(s).fetchall()
@@ -2070,6 +2076,7 @@ def decryptxt(dect,mag,de,eml):
     print(enctme)
     enctm=int(enctme)
     orm=1
+    print(3)
     global eve
     eve=0
     for i in enct:
@@ -2121,6 +2128,7 @@ def decryptxt(dect,mag,de,eml):
                 g=g*127
                 enctm=(enctm-g)+y
                 a=a-enctm
+                print(a)
                 enc=chr(a)
                 dec=dec+enc
             elif div=='c' or div=='C':
