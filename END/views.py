@@ -398,17 +398,17 @@ def signup(request):
                 lav=len(pw)
                 if pw != []:
                     ed=cutter(pw)
-                    if ed != 'NT':
+                    if ed =='NT' or lav>1:
+                        s="DELETE FROM  SG1 WHERE "
+                        s +="eml='"+eml+"';"
+                        pw=db.execute(s)
+                        db.commit()
+                    elif ed != 'NT':
                         msg='User Email already exist!! '
                         return render(request,'END/signup.html',{
                             'msg':msg,
                             'form':sign1(),
                         })
-                    elif ed =='NT' or lav>1:
-                        s="DELETE FROM  SG1 WHERE "
-                        s +="eml='"+eml+"';"
-                        pw=db.execute(s)
-                        db.commit()
                 print('5')
                 emvf=str(random.randint(111111,999999))
                 ud=str(uuid.uuid4())
