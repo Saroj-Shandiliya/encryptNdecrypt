@@ -313,12 +313,13 @@ def check(name,pwd):
         ch=False
         return ox,q,ran,ch
     else:
-        print(11)
+        print('11')
         q=cutter(pw)
         print(q)
         s="SELECT pwd FROM p1 WHERE "
         s +="uuidu='"+q+"';"
         pw=db.execute(s).fetchall()
+        print('12')
         pas=cutter(pw)
         print(pas)
         s="SELECT seal FROM  sg1 WHERE "
@@ -394,6 +395,7 @@ def signup(request):
                 pw=db.execute(s).fetchall()
                 print(pw)
                 print('4')
+                lav=len(pw)
                 if pw != []:
                     ed=cutter(pw)
                     if ed != 'NT':
@@ -402,7 +404,7 @@ def signup(request):
                             'msg':msg,
                             'form':sign1(),
                         })
-                    elif ed =='NT':
+                    elif ed =='NT' or lav>1:
                         s="DELETE FROM  SG1 WHERE "
                         s +="eml='"+eml+"';"
                         pw=db.execute(s)
