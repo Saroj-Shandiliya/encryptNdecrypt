@@ -1328,7 +1328,7 @@ def verify(request):
             s="SELECT vcode FROM SG1 WHERE eml='"+q[0]+"';"
             pw=db.execute(s).fetchall()
             print(pw)
-            pw=cutter(pw)
+            pw=emlcutter(pw)
             print(f'{pw}')
             if ver==pw:
                 print(f'pass')
@@ -2189,6 +2189,19 @@ def cutter(pw):                         #cuts messages recieved via SQL
     h=0
     for h in range(j):
         if h>2:
+            k=k+pw[h]
+    print(k)
+    return k
+
+def emlcutter(pw):                         #cuts messages recieved via SQL
+    pw=str(pw)
+    print(pw)
+    j=len(pw)-3
+    print(j)
+    k=''
+    h=0
+    for h in range(j):
+        if h>1:
             k=k+pw[h]
     print(k)
     return k
