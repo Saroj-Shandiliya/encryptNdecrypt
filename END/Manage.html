@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+            <meta charset="UTF-8">
+        <title>Archived messages</title>
+        <style>
+            .table1{
+                padding: 1%;
+                float: left ;
+            }
+            .notif{
+                
+                float:right;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <h1>Manage</h1>
+        <h2>{{user}}</h2>
+        <br>
+        <form class="btn active" action="{% url 'Profiles' rname=user %}",method='Get'>
+            <input type="submit" value="Home" >
+        </form>
+        <br><div class="notif" id="noti" style="float: right">
+                <br>
+                <h2 style="text-align: center;">Notification</h2>
+            <table class="table table-hover">
+                    {% for i in noti %}
+                    <tr>
+                        <td>{{i}}</td>
+                    </tr>  
+                    {% endfor %}      
+            </table>
+        </div>
+        <br>
+        <div style="float: left" class="table1">
+        <h2 style="text-align: center;">Archived Messages</h2>
+        <table class="table table-hover">
+            {% for i in dec %}
+            <tr>
+                
+                {% for m in i %}
+                <td>
+                {{m}} 
+            </td>
+                {% endfor %}
+            
+            </tr>
+            {% endfor %}
+        </div>
+                <br>
+            
+        </table>
+    </body>
+    </html>
