@@ -1514,7 +1514,7 @@ def feedu(request,rname):
     except:
         s="UPDATE SG1 SET logc = 'no' WHERE uuidu='"+q[0]+"';"
         del request.session['End']
-         if "Dnc" in request.session:
+        if "Dnc" in request.session:
             del request.session['Dnc']
         if "Enc" in request.session:
             del request.session['Enc']
