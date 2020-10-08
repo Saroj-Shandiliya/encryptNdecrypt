@@ -1317,88 +1317,98 @@ def notification(request,rname):
             return render(request,'END/logout.html')
 
 def verify(request):
-    q=request.session['for']
-    if request.method=="POST":
-        form=verif(request.POST)
-        print(f'1')
-        if form.is_valid():
-            ver=form.cleaned_data['verif']
-            print(f'{ver}')
-            s="SELECT vcode FROM SG1 WHERE eml='"+q[0]+"';"
-            pw=db.execute(s).fetchall()
-            print(pw)
-            pw=emlcutter(pw)
-            print(f'{pw}')
-            if ver==pw:
-                print(f'pass')
-                r=1
-                msg=':) Email Verified!'
-                s="UPDATE SG1 SET verify='ED' WHERE eml='"+q[0]+"';"
-                db.execute(s)
-                db.commit()
-                s="SELECT uuidu FROM SG1 WHERE eml='"+q[0]+"';"
+    try:
+        q=request.session['for']
+        if request.method=="POST":
+            form=verif(request.POST)
+            print(f'1')
+            if form.is_valid():
+                ver=form.cleaned_data['verif']
+                print(f'{ver}')
+                s="SELECT vcode FROM SG1 WHERE eml='"+q[0]+"';"
                 pw=db.execute(s).fetchall()
-                ud=cutter(pw)
-                s="SELECT usn FROM SG1 WHERE uuidu='"+ud+"';"
-                pw=db.execute(s).fetchall()
-                us=cutter(pw)
-                io=0
-                jo=len(us)
-                sam=''
-                for io in range(jo):
-                    if us[io]==' ':
-                        us[io]
-                    else:
-                        sam=sam+us[io]
-                fn=''
-                fn=str(random.randint(11111,99999))                  #file name decleration
-                s="INSERT INTO FN1 (uuidu,eml,enc,nott,dect) "         #entering file name to the fn1 file 
-                s+="VALUES ('"+ud+"','"+q[0]+"','"+'End'+sam+fn+'enct'+"','"+'End'+sam+fn+'nott'+"','"+'End'+sam+fn+'dect'+"');"
-                db.execute(s)
-                db.commit()
-                s="CREATE TABLE "+'End'+sam+fn+'enct'+"( "
-                s+="uuide varchar not null unique,"
-                s+="timeec varchar not null,"
-                s+="mang varchar not null ,"
-                s+="timedc varchar,"
-                s+="emld varchar,"
-                s+="acc varchar);"
-                db.execute(s)
-                db.commit()
-                s="CREATE TABLE "+'End'+sam+fn+'nott'+"( "
-                s+="id serial primary key,"
-                s+="msg varchar not null,"
-                s+="status varchar);"
-                db.execute(s)
-                db.commit()
-                s="CREATE TABLE "+'End'+sam+fn+'dect'+"( "
-                s+="uuide varchar not null unique,"
-                s+="timedc varchar ,"
-                s+="mang varchar not null ,"
-                s+="emle varchar not null,"
-                s+="acc varchar);"
-                db.execute(s)
-                db.commit()
-                if 'for' in request.session:
-                    del request.session['for']
-                return render(request,"END/email.html",{
-                    'msg':msg,
-                    'om':r
-                })
-            else:
-                r=1
-                msg=':) Email Not Verified!'
-                if 'for' in request.session:
-                    del request.session['for']
-                return render(request,"END/email.html",{
-                    'msg':msg,
-                    'om':r
-                })
-    else:
-        r=0
-        return render(request,"END/email.html",{
-            'form':verif(),
-            'om':r
+                print(pw)
+                pw=emlcutter(pw)
+                print(f'{pw}')
+                if ver==pw:
+                    print(f'pass')
+                    r=1
+                    msg=':) Email Verified!'
+                    s="UPDATE SG1 SET verify='ED' WHERE eml='"+q[0]+"';"
+                    db.execute(s)
+                    db.commit()
+                    s="SELECT uuidu FROM SG1 WHERE eml='"+q[0]+"';"
+                    pw=db.execute(s).fetchall()
+                    ud=cutter(pw)
+                    s="SELECT usn FROM SG1 WHERE uuidu='"+ud+"';"
+                    pw=db.execute(s).fetchall()
+                    us=cutter(pw)
+                    io=0
+                    jo=len(us)
+                    sam=''
+                    for io in range(jo):
+                        if us[io]==' ':
+                            us[io]
+                        else:
+                            sam=sam+us[io]
+                    fn=''
+                    fn=str(random.randint(11111,99999))                  #file name decleration
+                    s="INSERT INTO FN1 (uuidu,eml,enc,nott,dect) "         #entering file name to the fn1 file 
+                    s+="VALUES ('"+ud+"','"+q[0]+"','"+'End'+sam+fn+'enct'+"','"+'End'+sam+fn+'nott'+"','"+'End'+sam+fn+'dect'+"');"
+                    db.execute(s)
+                    db.commit()
+                    s="CREATE TABLE "+'End'+sam+fn+'enct'+"( "
+                    s+="uuide varchar not null unique,"
+                    s+="timeec varchar not null,"
+                    s+="mang varchar not null ,"
+                    s+="timedc varchar,"
+                    s+="emld varchar,"
+                    s+="acc varchar);"
+                    db.execute(s)
+                    db.commit()
+                    s="CREATE TABLE "+'End'+sam+fn+'nott'+"( "
+                    s+="id serial primary key,"
+                    s+="msg varchar not null,"
+                    s+="status varchar);"
+                    db.execute(s)
+                    db.commit()
+                    s="CREATE TABLE "+'End'+sam+fn+'dect'+"( "
+                    s+="uuide varchar not null unique,"
+                    s+="timedc varchar ,"
+                    s+="mang varchar not null ,"
+                    s+="emle varchar not null,"
+                    s+="acc varchar);"
+                    db.execute(s)
+                    db.commit()
+                    if 'for' in request.session:
+                        del request.session['for']
+                    return render(request,"END/email.html",{
+                        'msg':msg,
+                        'om':r
+                    })
+                else:
+                    r=1
+                    msg=':) Email Not Verified!'
+                    if 'for' in request.session:
+                        del request.session['for']
+                    return render(request,"END/email.html",{
+                        'msg':msg,
+                        'om':r
+                    })
+        else:
+            r=0
+            return render(request,"END/email.html",{
+                'form':verif(),
+                'om':r
+            })
+    except:
+        if "End" in request.session:
+            del request.session['End']
+        msg='Error!!'
+        return render(request,'END/main.html',{
+            'msg':msg
+            'form':Log(),
+            'form1':Log1(),
         })
 
 def logout(request):
@@ -1447,56 +1457,68 @@ def feed(request):
     return render(request,'END/aboutlogin.html')
 
 def feedu(request,rname):
-    q=request.session['End']
-    if "Dnc" not in request.session:
-        request.session['Dnc']=[]
-    w=request.session['Dnc']
-    s="SELECT logc FROM SG1 WHERE uuidu='"+q[0]+"';"
-    pw=db.execute(s).fetchall()
-    rn=cutter(pw)
-    s="SELECT usn FROM SG1 WHERE uuidu='"+q[0]+"';"
-    pw=db.execute(s).fetchall()
-    usn=cutter(pw)
-    if rn==q[1] and rname==usn:
-        if request.method=="POST":
-            form=Feed(request.POST)
-            if form.is_valid():
-                feed=form.cleaned_data['Feed']
-                s="SELECT eml FROM SG1 WHERE uuidu='"+q[0]+"';"
-                pw=db.execute(s).fetchall()
-                eml=cutter(pw)
-                uuidu=q[0]
-                s="INSERT INTO feed (uuidu,email,feedback) VALUEs ('"+uuidu+"','"+eml+"','"+feed+"');"
-                db.execute(s)
-                db.commit()
-                o=1
-                msg='Thank you for your valuable feedback :)'
-                return render(request,"END/feedback.html",{
-                    'form':Feed(),
-                    'msg1':msg,
-                    'o':o,
-                    'user':usn
-                })
+    try:
+        q=request.session['End']
+        if "Dnc" not in request.session:
+            request.session['Dnc']=[]
+        w=request.session['Dnc']
+        s="SELECT logc FROM SG1 WHERE uuidu='"+q[0]+"';"
+        pw=db.execute(s).fetchall()
+        rn=cutter(pw)
+        s="SELECT usn FROM SG1 WHERE uuidu='"+q[0]+"';"
+        pw=db.execute(s).fetchall()
+        usn=cutter(pw)
+        if rn==q[1] and rname==usn:
+            if request.method=="POST":
+                form=Feed(request.POST)
+                if form.is_valid():
+                    feed=form.cleaned_data['Feed']
+                    s="SELECT eml FROM SG1 WHERE uuidu='"+q[0]+"';"
+                    pw=db.execute(s).fetchall()
+                    eml=cutter(pw)
+                    uuidu=q[0]
+                    s="INSERT INTO feed (uuidu,email,feedback) VALUEs ('"+uuidu+"','"+eml+"','"+feed+"');"
+                    db.execute(s)
+                    db.commit()
+                    o=1
+                    msg='Thank you for your valuable feedback :)'
+                    return render(request,"END/feedback.html",{
+                        'form':Feed(),
+                        'msg1':msg,
+                        'o':o,
+                        'user':usn
+                    })
+                else:
+                    o=0
+                    msg='Invalid Input!!'
+                    return render(request,"END/feedback.html",{
+                        'form':Feed(),
+                        'msg':msg,
+                        'o':o,
+                        'user':usn
+                    })
             else:
                 o=0
-                msg='Invalid Input!!'
                 return render(request,"END/feedback.html",{
                     'form':Feed(),
-                    'msg':msg,
                     'o':o,
                     'user':usn
                 })
         else:
-            o=0
-            return render(request,"END/feedback.html",{
-                'form':Feed(),
-                'o':o,
-                'user':usn
-            })
-    else:
+            s="UPDATE SG1 SET logc = 'no' WHERE uuidu='"+q[0]+"';"
+            del request.session['End']
+            if "Dnc" in request.session:
+                del request.session['Dnc']
+            if "Enc" in request.session:
+                del request.session['Enc']
+            ran=''
+            q=[]
+            usn=''
+            return render(request,'END/error.html')
+    except:
         s="UPDATE SG1 SET logc = 'no' WHERE uuidu='"+q[0]+"';"
         del request.session['End']
-        if "Dnc" in request.session:
+         if "Dnc" in request.session:
             del request.session['Dnc']
         if "Enc" in request.session:
             del request.session['Enc']
@@ -1504,170 +1526,154 @@ def feedu(request,rname):
         q=[]
         usn=''
         return render(request,'END/error.html')
-    
 
 def guest(request):
-    if request.method == 'POST':
-        form=gue(request.POST)
-        form1=gueu(request.POST)
-        if form.is_valid() and form1.is_valid():
-            idg=form.cleaned_data['Guest_ID']
-            ke=form1.cleaned_data['Key']
-            s="SELECT sa FROM ug1 WHERE gid='"+idg+"';"
-            pw=db.execute(s).fetchall()
-            s="SELECT acc FROM ug1 WHERE gid='"+idg+"';"
-            wp=db.execute(s).fetchall()
-            if pw==[]:
-                msg='Guest id not found!!'
-                return render(request,'END/guest.html',{
-                    'msg':msg,
-                    'form':gue(),
-                    'form1':gueu()
-                })
-            elif wp==[('9862',)]:
-                msg='Guest id expired!!'
-                return render(request,'END/guest.html',{
-                    'msg':msg,
-                    'form':gue(),
-                    'form1':gueu()
-                })
-            else:
-                key=cutter(pw)
-                if ke==key:
-                    mag='ug1'
-                    s="SELECT uuidu FROM ug1 WHERE gid='"+idg+"' AND sa='"+ke+"';"
-                    pw=db.execute(s).fetchall()         #getting the uuide of the enc
-                    uid=cutter(pw)
-                    de=''
-                    eml=''
-                    dec,emle=rgdecryptxt(uid,mag,de,eml)
-                    s="SELECT encc FROM ug1 WHERE gid='"+idg+"' AND sa='"+ke+"';"
-                    pw=db.execute(s).fetchall()     #getting the email of the creator
-                    eml=cutter(pw)
-                    s="UPDATE "+mag+" SET acc='9862' WHERE uuidu='"+uid+"';"
-                    db.execute(s)                   #updating acc status in the ug1 file
-                    db.commit()
-                    s="SELECT enc FROM fn1 WHERE eml='"+eml+"';"
-                    pw=db.execute(s).fetchall()
-                    em=cutter(pw)                  #getting the name of enc file of the creator
-                    s="UPDATE "+em+" SET acc='9862' WHERE uuide='"+uid+"';"
-                    db.execute(s)                   #updating the creators enc file
-                    db.commit()
-                    no=''
-                    for i in range(len(em)-4):
-                        no=no+em[i]
-                    no=no+'nott'
-                    s="INSERT INTO "+no+" (msg,status) VALUES ('Message decrypted by "+idg+".','9089');"
-                    db.execute(s)                           #updating the creators notification
-                    db.commit()
-                    ok=1
-                    msg1='Message:'+dec
+    try:
+        if request.method == 'POST':
+            form=gue(request.POST)
+            form1=gueu(request.POST)
+            if form.is_valid() and form1.is_valid():
+                idg=form.cleaned_data['Guest_ID']
+                ke=form1.cleaned_data['Key']
+                s="SELECT sa FROM ug1 WHERE gid='"+idg+"';"
+                pw=db.execute(s).fetchall()
+                s="SELECT acc FROM ug1 WHERE gid='"+idg+"';"
+                wp=db.execute(s).fetchall()
+                if pw==[]:
+                    msg='Guest id not found!!'
                     return render(request,'END/guest.html',{
-                        'msg':msg1,
+                        'msg':msg,
                         'form':gue(),
-                        'form1':gueu(),
-                        'msg1':dec,
-                        'ok':ok
+                        'form1':gueu()
                     })
-                elif ke != key:
-                    s="SELECT wrn FROM ug1 WHERE gid='"+idg+"';"
-                    pw=db.execute(s).fetchall()         #getting the wrn of the enc
-                    wrn=cutter(pw)
-                    if wrn=='3':
-                        s="SELECT uuideu FROM ug1 WHERE gid='"+idg+"';"
+                elif wp==[('9862',)]:
+                    msg='Guest id expired!!'
+                    return render(request,'END/guest.html',{
+                        'msg':msg,
+                        'form':gue(),
+                        'form1':gueu()
+                    })
+                else:
+                    key=cutter(pw)
+                    if ke==key:
+                        mag='ug1'
+                        s="SELECT uuidu FROM ug1 WHERE gid='"+idg+"' AND sa='"+ke+"';"
                         pw=db.execute(s).fetchall()         #getting the uuide of the enc
                         uid=cutter(pw)
-                        s="UPDATE ug1 SET acc='9862' WHERE uuidu='"+uid+"';"
-                        db.execute(s)                   #updating acc status in the ug1 file
-                        s="SELECT encc FROM ug1 WHERE gid='"+idg+"';"
+                        de=''
+                        eml=''
+                        dec,emle=rgdecryptxt(uid,mag,de,eml)
+                        s="SELECT encc FROM ug1 WHERE gid='"+idg+"' AND sa='"+ke+"';"
                         pw=db.execute(s).fetchall()     #getting the email of the creator
                         eml=cutter(pw)
+                        s="UPDATE "+mag+" SET acc='9862' WHERE uuidu='"+uid+"';"
+                        db.execute(s)                   #updating acc status in the ug1 file
+                        db.commit()
                         s="SELECT enc FROM fn1 WHERE eml='"+eml+"';"
                         pw=db.execute(s).fetchall()
-                        eml=cutter(pw)                  #getting the name of enc file of the creator
-                        s="UPDATE "+eml+" SET acc='9862' WHERE uuide='"+uid+"';"
+                        em=cutter(pw)                  #getting the name of enc file of the creator
+                        s="UPDATE "+em+" SET acc='9862' WHERE uuide='"+uid+"';"
                         db.execute(s)                   #updating the creators enc file
-                        for i in range(len(en)-4):
-                            no=no+en[i]
+                        db.commit()
+                        no=''
+                        for i in range(len(em)-4):
+                            no=no+em[i]
                         no=no+'nott'
-                        s="INSERT INTO "+no+" (msg,status) VALUES ('"+idg+" has been blocked.','9089');"
+                        s="INSERT INTO "+no+" (msg,status) VALUES ('Message decrypted by "+idg+".','9089');"
                         db.execute(s)                           #updating the creators notification
-                        msg='Guest Id has been Blocked!!'
-                        ok=0
+                        db.commit()
+                        ok=1
+                        msg1='Message:'+dec
                         return render(request,'END/guest.html',{
-                            'msg':msg,
+                            'msg':msg1,
                             'form':gue(),
-                            'ok':ok,
-                            'form1':gueu()
+                            'form1':gueu(),
+                            'msg1':dec,
+                            'ok':ok
                         })
-                    else:
-                        ok=0
-                        wr=int(wrn)
-                        wr=wr+1
-                        wrn=str(wrn)
-                        s="UPDATE ug1 SET wrn='"+wrn+"' WHERE gid='"+idg+"';"
-                        db.execute(s)
-                        msg='Invalid Key!!'
-                        return render(request,'END/guest.html',{
-                            'msg':msg,
-                            'form':gue(),
-                            'ok':ok,
-                            'form1':gueu()
-                        })
+                    elif ke != key:
+                        s="SELECT wrn FROM ug1 WHERE gid='"+idg+"';"
+                        pw=db.execute(s).fetchall()         #getting the wrn of the enc
+                        wrn=cutter(pw)
+                        if wrn=='3':
+                            s="SELECT uuideu FROM ug1 WHERE gid='"+idg+"';"
+                            pw=db.execute(s).fetchall()         #getting the uuide of the enc
+                            uid=cutter(pw)
+                            s="UPDATE ug1 SET acc='9862' WHERE uuidu='"+uid+"';"
+                            db.execute(s)                   #updating acc status in the ug1 file
+                            s="SELECT encc FROM ug1 WHERE gid='"+idg+"';"
+                            pw=db.execute(s).fetchall()     #getting the email of the creator
+                            eml=cutter(pw)
+                            s="SELECT enc FROM fn1 WHERE eml='"+eml+"';"
+                            pw=db.execute(s).fetchall()
+                            eml=cutter(pw)                  #getting the name of enc file of the creator
+                            s="UPDATE "+eml+" SET acc='9862' WHERE uuide='"+uid+"';"
+                            db.execute(s)                   #updating the creators enc file
+                            for i in range(len(en)-4):
+                                no=no+en[i]
+                            no=no+'nott'
+                            s="INSERT INTO "+no+" (msg,status) VALUES ('"+idg+" has been blocked.','9089');"
+                            db.execute(s)                           #updating the creators notification
+                            msg='Guest Id has been Blocked!!'
+                            ok=0
+                            return render(request,'END/guest.html',{
+                                'msg':msg,
+                                'form':gue(),
+                                'ok':ok,
+                                'form1':gueu()
+                            })
+                        else:
+                            ok=0
+                            wr=int(wrn)
+                            wr=wr+1
+                            wrn=str(wrn)
+                            s="UPDATE ug1 SET wrn='"+wrn+"' WHERE gid='"+idg+"';"
+                            db.execute(s)
+                            msg='Invalid Key!!'
+                            return render(request,'END/guest.html',{
+                                'msg':msg,
+                                'form':gue(),
+                                'ok':ok,
+                                'form1':gueu()
+                            })
+            else:
+                ok=0
+                msg='Invalid Input!!'
+                return render(request,'END/guest.html',{
+                    'msg':msg,
+                    'form':gue(),
+                    'form1':gueu()
+                })
         else:
-            ok=0
-            msg='Invalid Input!!'
+            ok=2
             return render(request,'END/guest.html',{
-                'msg':msg,
                 'form':gue(),
-                'form1':gueu()
+                'form1':gueu(),
+                'ok':ok
             })
-    else:
-        ok=2
-        return render(request,'END/guest.html',{
-            'form':gue(),
-            'form1':gueu(),
-            'ok':ok
-        })
+    except:
+        if "End" in request.session:
+            del request.session['End']
+        msg='Error!!'
+        return render(request,'END/error.html')
 
 def randomguest(request):
-    if request.method=='POST':
-        form=rad(request.POST)
-        if form.is_valid():
-            man=form.cleaned_data['Encrypted_Message']
-            s="Select acc FROM ur1 WHERE uuidu='"+man+"';"
-            pw=db.execute(s).fetchall()
-            if pw == []:
-                msg=':(   Invalid Input!!'
-                oka=2
-                return render(request,'END/random.html',{
-                    'msg':msg,
-                    'form':rad(),
-                    'oka':oka
-                })
-            elif pw == [('9862',)]:
-                msg=':(   Message Expired!!'
-                oka=2
-                return render(request,'END/random.html',{
-                    'msg':msg,
-                    'form':rad(),
-                    'oka':oka
-                })
-            else:
-                s="Select time FROM ur1 WHERE uuidu='"+man+"';"
+    try:
+        if request.method=='POST':
+            form=rad(request.POST)
+            if form.is_valid():
+                man=form.cleaned_data['Encrypted_Message']
+                s="Select acc FROM ur1 WHERE uuidu='"+man+"';"
                 pw=db.execute(s).fetchall()
-                tim=cutter(pw)
-                td=str(datetime.date.today())
-                if td>tim:
-                    s="Select encc FROM ur1 WHERE uuidu='"+man+"';"
-                    pw=db.execute(s).fetchall()
-                    eml=cutter(pw)
-                    s="UPDATE ur1 SET acc='9862' WHERE uuidu='"+man+"';"
-                    db.execute(s)                   #updating acc status in the ug1 file
-                    db.commit()
-                    s="UPDATE "+eml+" SET acc='9862' WHERE uuide='"+man+"';"
-                    db.execute(s)                   #updating the creators enc file
-                    db.commit()
+                if pw == []:
+                    msg=':(   Invalid Input!!'
+                    oka=2
+                    return render(request,'END/random.html',{
+                        'msg':msg,
+                        'form':rad(),
+                        'oka':oka
+                    })
+                elif pw == [('9862',)]:
                     msg=':(   Message Expired!!'
                     oka=2
                     return render(request,'END/random.html',{
@@ -1675,123 +1681,182 @@ def randomguest(request):
                         'form':rad(),
                         'oka':oka
                     })
-                elif td==tim:
-                    s="Select enct FROM ur1 WHERE uuidu='"+man+"';"
+                else:
+                    s="Select time FROM ur1 WHERE uuidu='"+man+"';"
                     pw=db.execute(s).fetchall()
-                    enct=cutter(pw)
-                    mag='ur1'
-                    de=''
-                    eml=''
-                    print(man)
-                    print(mag)
-                    print(de)
-                    print(eml)
-                    dec,emle=rgdecryptxt(man,mag,de,eml)
-                    s="SELECT encc FROM ur1 WHERE uuidu='"+man+"';"
-                    pw=db.execute(s).fetchall()     #getting the email of the creator
-                    eml=cutter(pw)
-                    s="SELECT enc FROM fn1 WHERE eml='"+eml+"';"
-                    pw=db.execute(s).fetchall()         #getting the enc file name of the creator
-                    eml=cutter(pw)
-                    oka=1
-                    return render(request,'END/random.html',{
-                        'msg1':dec,
-                        'form':rad(),
-                        'oka':oka
-                    })
-            
+                    tim=cutter(pw)
+                    td=str(datetime.date.today())
+                    if td>tim:
+                        s="Select encc FROM ur1 WHERE uuidu='"+man+"';"
+                        pw=db.execute(s).fetchall()
+                        eml=cutter(pw)
+                        s="UPDATE ur1 SET acc='9862' WHERE uuidu='"+man+"';"
+                        db.execute(s)                   #updating acc status in the ug1 file
+                        db.commit()
+                        s="UPDATE "+eml+" SET acc='9862' WHERE uuide='"+man+"';"
+                        db.execute(s)                   #updating the creators enc file
+                        db.commit()
+                        msg=':(   Message Expired!!'
+                        oka=2
+                        return render(request,'END/random.html',{
+                            'msg':msg,
+                            'form':rad(),
+                            'oka':oka
+                        })
+                    elif td==tim:
+                        s="Select enct FROM ur1 WHERE uuidu='"+man+"';"
+                        pw=db.execute(s).fetchall()
+                        enct=cutter(pw)
+                        mag='ur1'
+                        de=''
+                        eml=''
+                        print(man)
+                        print(mag)
+                        print(de)
+                        print(eml)
+                        dec,emle=rgdecryptxt(man,mag,de,eml)
+                        s="SELECT encc FROM ur1 WHERE uuidu='"+man+"';"
+                        pw=db.execute(s).fetchall()     #getting the email of the creator
+                        eml=cutter(pw)
+                        s="SELECT enc FROM fn1 WHERE eml='"+eml+"';"
+                        pw=db.execute(s).fetchall()         #getting the enc file name of the creator
+                        eml=cutter(pw)
+                        oka=1
+                        return render(request,'END/random.html',{
+                            'msg1':dec,
+                            'form':rad(),
+                            'oka':oka
+                        })
+                
+            else:
+                oka=2
+                msg=':(   Invalid Input!'
+                return render(request,'END/random.html',{
+                    'msg':msg,
+                    'form':rad(),
+                    'oka':oka
+                })
         else:
             oka=2
-            msg=':(   Invalid Input!'
             return render(request,'END/random.html',{
-                'msg':msg,
                 'form':rad(),
                 'oka':oka
             })
-    else:
-        oka=2
-        return render(request,'END/random.html',{
-            'form':rad(),
-            'oka':oka
-        })
+    except:
+        if "End" in request.session:
+            del request.session['End']
+        msg='Error!!'
+        return render(request,'END/error.html')
 
 def forgot(request):
-    if "fog" not in request.session:
-        request.session["fog"]=[]
-    w=request.session["fog"]
-    if request.method == 'POST':
-        print(w[0])
-        if w[0]==1:
-            form=forg(request.POST)
-        elif w[0]==2:
-            form=ans(request.POST)
-        elif w[0]==3:
-            form=pasm(request.POST)
-        else:
-            print('hey')
-            msg=':( Try Again!!'
-            uid=''
-            del request.session["fog"]
+    try:
+        if "fog" not in request.session:
             request.session["fog"]=[]
-            f=1
-            request.session["fog"]+=[f]
-            return render(request,'END/forgot.html',{
-                'form':forg(),
-                'f':f,
-                'msg':msg
-            })
-        if form.is_valid():
+        w=request.session["fog"]
+        if request.method == 'POST':
+            print(w[0])
             if w[0]==1:
-                eml=form.cleaned_data['Email']
-                s="SELECT uuidu FROM  SG1 WHERE "
-                s +="eml='"+eml+"';"
-                pw=db.execute(s).fetchall()
-                if pw == []:
-                    f=1
-                    msg='No Such User exist!!'
-                    return render(request,'END/forgot.html',{
-                        'form':forg(),
-                        'f':f
-                    })
-                uid=cutter(pw)
-                w+=[uid]
-                emvf=str(random.randint(111111,999999))
-                s="UPDATE sg1 SET vcode = "+emvf+" WHERE "
-                s +="uuidu='"+uid+"';"
-                pw=db.execute(s)
-                db.commit()
-                send_mail("Reset Password [EnD].","Your EnD verification code |"+emvf+"|.","encryptndecrypt@gmail.com",[eml],    # This is a list
-                    fail_silently = False     # Set this to False so that you will be noticed in any exception raised
-                    )
-                f=2
-                w[0]=f
-                request.session["fog"]=w
-                return render(request,'END/forgot.html',{
-                    'f':f,
-                    'sa':ans()
-                })
+                form=forg(request.POST)
             elif w[0]==2:
-                sae=form.cleaned_data['Answer']
-                uid=str(w[1])
-                s="SELECT vcode FROM  sg1 WHERE "
-                s +="uuidu='"+uid+"';"
-                pw=db.execute(s).fetchall()
-                sa=cutter(pw)
-                print(sa)
-                if sae==sa:
-                    f=3
+                form=ans(request.POST)
+            elif w[0]==3:
+                form=pasm(request.POST)
+            else:
+                print('hey')
+                msg=':( Try Again!!'
+                uid=''
+                del request.session["fog"]
+                request.session["fog"]=[]
+                f=1
+                request.session["fog"]+=[f]
+                return render(request,'END/forgot.html',{
+                    'form':forg(),
+                    'f':f,
+                    'msg':msg
+                })
+            if form.is_valid():
+                if w[0]==1:
+                    eml=form.cleaned_data['Email']
+                    s="SELECT uuidu FROM  SG1 WHERE "
+                    s +="eml='"+eml+"';"
+                    pw=db.execute(s).fetchall()
+                    if pw == []:
+                        f=1
+                        msg='No Such User exist!!'
+                        return render(request,'END/forgot.html',{
+                            'form':forg(),
+                            'f':f
+                        })
+                    uid=cutter(pw)
+                    w+=[uid]
+                    emvf=str(random.randint(111111,999999))
+                    s="UPDATE sg1 SET vcode = "+emvf+" WHERE "
+                    s +="uuidu='"+uid+"';"
+                    pw=db.execute(s)
+                    db.commit()
+                    send_mail("Reset Password [EnD].","Your EnD verification code |"+emvf+"|.","encryptndecrypt@gmail.com",[eml],    # This is a list
+                        fail_silently = False     # Set this to False so that you will be noticed in any exception raised
+                        )
+                    f=2
                     w[0]=f
-                    uid=''
-                    w[1]=[uid]
                     request.session["fog"]=w
-                    msg='User Verified Enter New Password'
                     return render(request,'END/forgot.html',{
                         'f':f,
-                        'sa':pasm(),
-                        'msg':msg
+                        'sa':ans()
+                    })
+                elif w[0]==2:
+                    sae=form.cleaned_data['Answer']
+                    uid=str(w[1])
+                    s="SELECT vcode FROM  sg1 WHERE "
+                    s +="uuidu='"+uid+"';"
+                    pw=db.execute(s).fetchall()
+                    sa=cutter(pw)
+                    print(sa)
+                    if sae==sa:
+                        f=3
+                        w[0]=f
+                        uid=''
+                        w[1]=[uid]
+                        request.session["fog"]=w
+                        msg='User Verified Enter New Password'
+                        return render(request,'END/forgot.html',{
+                            'f':f,
+                            'sa':pasm(),
+                            'msg':msg
+                        })
+                    else:
+                        msg='Invalid Code!!'
+                        uid=''
+                        del request.session["fog"]
+                        request.session["fog"]=[]
+                        f=1
+                        request.session["fog"]+=[f]
+                        return render(request,'END/forgot.html',{
+                            'form':forg(),
+                            'f':f,
+                            'msg':msg
+                        })
+                elif w[0]==3:
+                    pas=form.cleaned_data['Password']
+                    pas=hash(pas)
+                    uid=str(w[1])
+                    s="UPDATE p1 SET pwd='"+pas+"' WHERE uuidu='"+uid+"';"
+                    db.execute(s)
+                    db.commit()
+                    msg='Password Changed!!'
+                    f=1
+                    uid=''
+                    del request.session["fog"]
+                    request.session["fog"]=[]
+                    f=1
+                    request.session["fog"]+=[f]
+                    f=12
+                    return render(request,'END/forgot.html',{
+                        'msg':msg,
+                        'f':f
                     })
                 else:
-                    msg='Invalid Code!!'
+                    msg=':( Try Again!!'
                     uid=''
                     del request.session["fog"]
                     request.session["fog"]=[]
@@ -1802,25 +1867,6 @@ def forgot(request):
                         'f':f,
                         'msg':msg
                     })
-            elif w[0]==3:
-                pas=form.cleaned_data['Password']
-                pas=hash(pas)
-                uid=str(w[1])
-                s="UPDATE p1 SET pwd='"+pas+"' WHERE uuidu='"+uid+"';"
-                db.execute(s)
-                db.commit()
-                msg='Password Changed!!'
-                f=1
-                uid=''
-                del request.session["fog"]
-                request.session["fog"]=[]
-                f=1
-                request.session["fog"]+=[f]
-                f=12
-                return render(request,'END/forgot.html',{
-                    'msg':msg,
-                    'f':f
-                })
             else:
                 msg=':( Try Again!!'
                 uid=''
@@ -1834,28 +1880,23 @@ def forgot(request):
                     'msg':msg
                 })
         else:
-            msg=':( Try Again!!'
-            uid=''
-            del request.session["fog"]
+            if "fog" in request.session:
+                del request.session["fog"]
             request.session["fog"]=[]
             f=1
             request.session["fog"]+=[f]
+            uid=''
             return render(request,'END/forgot.html',{
                 'form':forg(),
-                'f':f,
-                'msg':msg
+                'f':f
             })
-    else:
+    except:
+        if "End" in request.session:
+            del request.session['End']
         if "fog" in request.session:
-            del request.session["fog"]
-        request.session["fog"]=[]
-        f=1
-        request.session["fog"]+=[f]
-        uid=''
-        return render(request,'END/forgot.html',{
-            'form':forg(),
-            'f':f
-        })
+            del request.session['fog']
+        msg='Error!!'
+        return render(request,'END/error.html')
 
 def username(request,rname):
     try:
