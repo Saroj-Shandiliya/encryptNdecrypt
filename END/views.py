@@ -179,7 +179,6 @@ class nam(forms.Form):                  # email of the decrypter for uud
 # Create your views here.
 
 def start(request):
-    
     return render(request,'start.html')
 
 def login(request):
