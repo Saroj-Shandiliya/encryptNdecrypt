@@ -756,7 +756,7 @@ def encrypt(request,rname):
                                     db.execute(s)                           #inserting in main enc file
                                     db.commit()
                                     msg='Message Created!!'
-                                    msg1='Guest Id:'+usd
+                                    msg1=usd
                                     usd=''
                                     del request.session['Dnc']
                                     noti=reverse1(q)
@@ -799,7 +799,7 @@ def encrypt(request,rname):
                             db.execute(s)                           #inserting in main enc file
                             db.commit()
                             msg='Message Created!!'
-                            msg1='Message: '+ud
+                            msg1='ID: '+ud
                             usd=''
                             del request.session['Dnc']
                             request.session['Dnc']=[]
@@ -1584,7 +1584,6 @@ def guest(request):
                             'msg':msg1,
                             'form':gue(),
                             'form1':gueu(),
-                            'msg1':dec,
                             'ok':ok
                         })
                     elif ke != key:
