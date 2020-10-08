@@ -1405,11 +1405,7 @@ def verify(request):
         if "End" in request.session:
             del request.session['End']
         msg='Error!!'
-        return render(request,'END/main.html',{
-            'msg':msg
-            'form':Log(),
-            'form1':Log1(),
-        })
+        return render(request,'END/error.html')
 
 def logout(request):
     if "Dnc" in request.session:
