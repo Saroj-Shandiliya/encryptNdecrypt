@@ -764,7 +764,6 @@ def encrypt(request,rname):
                                     request.session['Dnc']+=[t]
                                     return render(request,'END/Encrypt.html',{
                                     'user':usn,
-                                    'msg':msg,
                                     'msg1':msg1,
                                     'form':Enc(),
                                     'noti':noti,
@@ -1541,7 +1540,7 @@ def guest(request):
                     uid=cutter(pw)
                     de=''
                     eml=''
-                    dec,emle=decryptxt(uid,mag,de,eml)
+                    dec,emle=rgdecryptxt(uid,mag,de,eml)
                     s="SELECT encc FROM ug1 WHERE gid='"+idg+"' AND sa='"+ke+"';"
                     pw=db.execute(s).fetchall()     #getting the email of the creator
                     eml=cutter(pw)
@@ -1687,7 +1686,7 @@ def randomguest(request):
                     print(mag)
                     print(de)
                     print(eml)
-                    dec,emle=decryptxt(man,mag,de,eml)
+                    dec,emle=rgdecryptxt(man,mag,de,eml)
                     s="SELECT encc FROM ur1 WHERE uuidu='"+man+"';"
                     pw=db.execute(s).fetchall()     #getting the email of the creator
                     eml=cutter(pw)
@@ -2285,3 +2284,144 @@ def userfiles(q):
     pw=db.execute(s).fetchall()
     eml=cutter(pw)
     return fln,de,notif,eml
+
+def rgdecryptxt(dect,mag,de,eml):
+    div=''       #divisional block 
+    loop=0       #no of times to loop
+    num=0        #no of times to increase time
+    a=0          #ascii no of each character
+    enc=''       #character representation of ascii
+    dec=''       #decrypted text
+    y=0          #second increment
+    fn=''
+    emle=''
+    print(1)
+    s="SELECT enct FROM "+mag+" WHERE uuidu='"+dect+"';"
+    pw=db.execute(s).fetchall()
+    enct=cutter(pw)
+    print(dect)
+    print(enct)
+    s="SELECT enck FROM "+mag+" WHERE uuidu='"+dect+"';"
+    pw=db.execute(s).fetchall()
+    enck=cutter(pw)
+    print(2)
+    print(enck)
+    s="SELECT enctm FROM "+mag+" WHERE uuidu='"+dect+"';"
+    pw=db.execute(s).fetchall()
+    enctme=emlcutter(pw)
+    print(enctme)
+    enctm=int(enctme)
+    orm=1
+    print(3)
+    global eve
+    eve=0
+    print('4')
+    for i in enct:
+        print(f'e={eve}')
+        print(f'i={i}')
+        s=i
+        print(f's={s}')
+        if len(s)>1:
+            h=len(s)-1
+            a=int(s[h])
+            print(f'a={a}')
+            print('hah ha ha ')
+        else:
+            a=ord(i)
+        if a==92:
+            eve=eve+1
+            print(f'value:e ={eve}')
+            print(f'value orm: {orm}')
+            if orm==1 and eve>=2:
+                orm=2
+                eve=0
+                print(f'e={e}')
+        if orm==1:
+            div=enck[loop]
+            loop=loop+1
+            num=int(enck[loop])
+            loop=loop+1
+            sm=int(enck[loop])
+            loop=loop+1
+            print(loop)
+            if div=='a' or div=='A':
+                for j in range(num):
+                    a=a+127
+                for ji in range(sm):
+                    a=a-40
+                e=enctm/127
+                g,h=divmod(e,1)
+                g=int(round(g))
+                g=g*127
+                enctm=(enctm-g)+y
+                a=a-enctm
+                enc=chr(a)
+                dec=dec+enc
+            elif div=='b' or div=='B':
+                for ji in range(sm):
+                    a=a-40
+                e=enctm/127
+                g,h=divmod(e,1)
+                g=int(round(g))
+                g=g*127
+                enctm=(enctm-g)+y
+                a=a-enctm
+                print(a)
+                enc=chr(a)
+                dec=dec+enc
+            elif div=='c' or div=='C':
+                for j in range(num):
+                    a=a-127
+                for ji in range(sm):
+                    a=a-40
+                e=enctm/127
+                g,h=divmod(e,1)
+                g=int(round(g))
+                g=g*127
+                enctm=(enctm-g)+y
+                a=a+enctm
+                enc=chr(a)
+                dec=dec+enc
+            elif div=='d' or div=='D':
+                for ji in range(sm):
+                    a=a-40
+                e=enctm/127
+                g,h=divmod(e,1)
+                g=int(round(g))
+                g=g*127
+                enctm=(enctm-g)+y
+                a=a+enctm
+                enc=chr(a)
+                dec=dec+enc
+            print(dec)
+            y=y+1
+        elif orm==2:
+            orm=1
+    if mag=='uud1' or mag=='uus1':
+        tm=str(datetime.datetime.now())
+        s="UPDATE "+mag+" SET acc='9862' WHERE uuidu='"+dect+"';"
+        db.execute(s)                   #updating the main file for status changes
+        db.commit()
+        s="UPDATE "+de+" SET acc='9862', timedc='"+tm+"' WHERE uuide='"+dect+"';"
+        db.execute(s)                   #updating the user dec file for status changes
+        db.commit()
+        s="SELECT emle FROM "+de+" WHERE uuide='"+dect+"';"
+        pw=db.execute(s).fetchall()         #getting the creators email id for status change
+        emle=cutter(pw)
+        s="SELECT enc FROM fn1 WHERE eml='"+emle+"';"
+        pw=db.execute(s).fetchall()             
+        en=cutter(pw)
+        s="UPDATE "+en+" SET timedc='"+tm+"',acc='9862' WHERE uuide='"+dect+"';"
+        db.execute(s)                       #updating the enc file of the creator
+        db.commit()
+        no=''                               
+        for i in range(len(en)-4):
+            no=no+en[i]
+        no=no+'nott'
+        s="INSERT INTO "+no+" (msg,status) VALUES ('Message decrypted by "+eml+".','9089');"
+        db.execute(s)                           #updating the creators notification
+        db.commit()
+    print(dec)
+    if emle=='':
+        emle=''
+    return dec,emle
