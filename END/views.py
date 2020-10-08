@@ -2079,6 +2079,7 @@ def decryptxt(dect,mag,de,eml):
     print(3)
     global eve
     eve=0
+    print('4')
     for i in enct:
         print(f'e={eve}')
         print(f'i={i}')
@@ -2087,6 +2088,7 @@ def decryptxt(dect,mag,de,eml):
         if len(s)>1:
             h=len(s)-1
             a=int(s[h])
+            print(f'a={a}')
             print('hah ha ha ')
         else:
             a=ord(i)
