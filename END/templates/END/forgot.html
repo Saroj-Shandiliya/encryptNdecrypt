@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta charset="UTF-8">
-        <title>Forgot Password</title>
+        <title>encryptndecrypt_Forgot</title>
         <style>
             body{
                 margin: 0;
@@ -57,6 +57,18 @@
                 float: left;
                 margin:0 10px;
             }
+            .feedHeaderbase{
+                background-color:rgb(0, 0, 0);
+                width: 100%;
+                height: 80.5px;
+                position: fixed;
+                top: 0%;
+                left: 0%;
+                color: rgb(0, 0, 0);
+                z-index: 7;
+                font-family: verdana;
+                -webkit-box-shadow: 0 3px 8px rgba(0,0,0,.25);
+            }
             .feedHeader{
                 width: 100%;
                 height: 45px;
@@ -64,7 +76,17 @@
                 top: 0%;
                 left: 0%;
                 color: white;
+                z-index: 7;
                 font-family: verdana;
+            }
+            #text{
+                    color: #4caf50;
+                    float: left;
+                    left: 9.5%;
+                    height: 25px;
+                    top: 5%;
+                    position: fixed;
+                    font-size: 10px;
             }
             #img1{
                 left: 6%;
@@ -75,10 +97,10 @@
             #v2 {
                 border-bottom: 2px solid  #4caf50;
                 width: 94%;
-                position: absolute;
+                position: fixed;
                 left: 3%;
                 margin-left: -3px;
-                top: 70px;
+                top: 80px;
                 opacity: 50%;
             }
             .bodyfeed{
@@ -124,7 +146,7 @@
                 cursor: pointer;
                 margin: 1px 0;
             }
-            @media screen and (max-width:166px){
+            @media screen and (max-width:1066px){
                 #img2{
                     width: 100%;
                     top: 25%;
@@ -154,9 +176,13 @@
                     opacity: 10%;
                     position: fixed;
                     }
+                    #text{
+                        top: 2.5%;
+                        left: 10.5%;
+                    }
                 .login-box{
                     position: relative;;
-                    width: 280px;
+                    width: 380px;
                     position:absolute;
                     top: 45%;
                     left: 50%;
@@ -164,13 +190,19 @@
                     color:whitesmoke;
                 }
             }
-            @media screen and (max-width:700px){
+            @media screen and (max-width:770px){
                 #img2{
                     width: 100%;
+                    top: 18%;
+                    left: %;
                     max-width: 700px;
                     margin: 20px 0;
                     opacity: 10%;
                     position: fixed;
+                    }
+                    #text{
+                        top: 3.2%;
+                        left: 12.5%;
                     }
                 .login-box{
                     position: relative;;
@@ -182,12 +214,81 @@
                     color:whitesmoke;
                 }
             }
+            @media screen and (max-width:672px){
+                #text{
+                        top: 3.7%;
+                        left: 16.0%;
+                    }
+            }
+            @media screen and (max-width:550px){
+                #text{
+                        top: 5.0%;
+                        left: 16.0%;
+                    }
+            }
+            @media screen and (max-width:420px){
+                #text{
+                        top: 5%;
+                        left: 19.5%;
+                    }
+            }
+            @media screen and (max-width:412px){
+                #text{
+                        top: 4.2%;
+                        left: 20.0%;
+                    }
+            }
+            @media screen and (max-width:375px){
+                #text{
+                        top: 4.7%;
+                        left: 21.5%;
+                    }
+            }
+            @media screen and (max-width:360px){
+                #img2{
+                    width: 100%;
+                    top: 18%;
+                    left: %;
+                    max-width: 700px;
+                    margin: 20px 0;
+                    opacity: 10%;
+                    position: fixed;
+                    }
+                    #text{
+                        top: 5%;
+                        left: 21.5%;
+                    }
+                .login-box{
+                    position: relative;;
+                    width: 250px;
+                    position:absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                    color:whitesmoke;
+                }
+            }
+            @media screen and (max-width:320px){
+                #text{
+                    top: 5.8%;
+                        left: 22.7%;
+                        font-size: 9px;
+                    }
+            }
+            @media screen and (max-width:300px){
+                #text{
+                        top: 5.6%;
+                        left: 24.7%;
+                        font-size: 6px;
+                    }
+            }
         </style>
     </head>
     <body>
             {% load static %}
+            <div class="feedHeaderbase"></div>
             <div class="feedHeader">
-                <div id="img1" class="feedHeader"> <a href="{% url 'start' %}"><img src="{% static 'END/end2.png' %}" alt="EnD logo" width="80px"></a></div>
+                <div id="img1" class="feedHeader"> <a href="{% url 'start' %}"><img src="{% static 'END/end2.png' %}" alt="EnD logo" width="80px"></a><h10 id="text">ENCRYPT N DECRYPT</h10></div>
                 <div id="v2" class=""></div>
             </div>
     

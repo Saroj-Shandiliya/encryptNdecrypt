@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <meta charset="UTF-8">
-        <title>Login</title>
+        <title>encryptndecrypt_Login</title>
         <style>
                 
             body{
@@ -18,6 +18,18 @@
                 font-family: sans-serif;
                 background-color:black;
                 background-size: cover;
+            }
+            .feedHeaderbase{
+                background-color:rgb(0, 0, 0);
+                width: 100%;
+                height: 80.5px;
+                position: fixed;
+                top: 0%;
+                left: 0%;
+                color: rgb(0, 0, 0);
+                z-index: 7;
+                font-family: verdana;
+                -webkit-box-shadow: 0 3px 8px rgba(0,0,0,.25);
             }
             .login-box{
                 width: 280px;
@@ -70,6 +82,7 @@
             top: 0%;
             left: 0%;
             color: white;
+            z-index: 7;
             font-family: verdana;
         }
         #img1{
@@ -82,10 +95,10 @@
             #v2 {
             border-bottom: 2px solid  #4caf50;
             width: 94%;
-            position: absolute;
+            position: fixed;
             left: 3%;
             margin-left: -3px;
-            top: 70px;
+            top: 80px;
             opacity: 50%;
             
             }
@@ -154,6 +167,15 @@
                 cursor: pointer;
                 margin: 3px 0;
             }
+            #text{
+                    color: #4caf50;
+                    float: left;
+                    left: 9.5%;
+                    height: 25px;
+                    top: 5%;
+                    position: fixed;
+                    font-size: 10px;
+            }
             @media screen and (max-width:1066px){
                 #img2{
                     width: 100%;
@@ -184,6 +206,10 @@
                     opacity: 10%;
                     position: fixed;
                     }
+                    #text{
+                        top: 2.5%;
+                        left: 10.5%;
+                    }
                 .login-box{
                     position: relative;;
                     width: 380px;
@@ -194,7 +220,7 @@
                     color:whitesmoke;
                 }
             }
-            @media screen and (max-width:700px){
+            @media screen and (max-width:770px){
                 #img2{
                     width: 100%;
                     top: 18%;
@@ -203,6 +229,10 @@
                     margin: 20px 0;
                     opacity: 10%;
                     position: fixed;
+                    }
+                    #text{
+                        top: 3.2%;
+                        left: 12.5%;
                     }
                 .login-box{
                     position: relative;;
@@ -214,6 +244,36 @@
                     color:whitesmoke;
                 }
             }
+            @media screen and (max-width:672px){
+                #text{
+                        top: 3.7%;
+                        left: 16.0%;
+                    }
+            }
+            @media screen and (max-width:550px){
+                #text{
+                        top: 5.0%;
+                        left: 16.0%;
+                    }
+            }
+            @media screen and (max-width:420px){
+                #text{
+                        top: 5%;
+                        left: 19.5%;
+                    }
+            }
+            @media screen and (max-width:412px){
+                #text{
+                        top: 4.2%;
+                        left: 20.0%;
+                    }
+            }
+            @media screen and (max-width:375px){
+                #text{
+                        top: 4.7%;
+                        left: 21.5%;
+                    }
+            }
             @media screen and (max-width:360px){
                 #img2{
                     width: 100%;
@@ -223,6 +283,10 @@
                     margin: 20px 0;
                     opacity: 10%;
                     position: fixed;
+                    }
+                    #text{
+                        top: 5%;
+                        left: 21.5%;
                     }
                 .login-box{
                     position: relative;;
@@ -234,12 +298,27 @@
                     color:whitesmoke;
                 }
             }
+            @media screen and (max-width:320px){
+                #text{
+                    top: 5.8%;
+                        left: 22.7%;
+                        font-size: 9px;
+                    }
+            }
+            @media screen and (max-width:300px){
+                #text{
+                        top: 5.6%;
+                        left: 24.7%;
+                        font-size: 6px;
+                    }
+            }
             </style>
     </head>
     <body>
         {% load static %}
+        <div class="feedHeaderbase"></div>
         <div class="feedHeader">
-            <div id="img1" class="feedHeader"><a href="{% url 'start' %}"><img src="{% static 'END/end2.png' %}" alt="EnD logo" width="80px"></a></div>
+            <div id="img1" class="feedHeader"><a href="{% url 'start' %}"><img src="{% static 'END/end2.png' %}" alt="EnD logo" width="80px"></a><h10 id="text">ENCRYPT N DECRYPT</h10></div>
             <div id="v2" class=""></div>
         </div>
 

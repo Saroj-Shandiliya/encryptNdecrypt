@@ -1561,7 +1561,7 @@ def guest(request):
                     db.execute(s)                           #updating the creators notification
                     db.commit()
                     ok=1
-                    msg1='Your Message'
+                    msg1='Message:'+dec
                     return render(request,'END/guest.html',{
                         'msg':msg1,
                         'form':gue(),
