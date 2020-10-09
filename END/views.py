@@ -47,13 +47,11 @@ eml=''
 #Engine created for SQLalchemy
 
 
-print(os.getenv("HEROKU_POSTGRESQL_GREEN_URL"))
 engine=create_engine(os.getenv('HEROKU_POSTGRESQL_GREEN_URL'))
 db=scoped_session(sessionmaker(bind=engine))
 
 s="select * from sg1;"
 pw=db.execute(s).fetchall()
-print(pw)
 
 appname='END'
 
@@ -199,9 +197,7 @@ def login(request):
                 name=name.lower()
                 request.session['End']=[]
                 ran=''
-                print('1')
                 r,ud,ran,ch=check(name,pwd)
-                print('2')
                 if ch==True:
                     if "End" in request.session:
                         del request.session['End']
@@ -211,13 +207,9 @@ def login(request):
                     request.session['for']+=[name]
                     return HttpResponseRedirect(reverse('verify'))
                 request.session['End'] +=[ud]
-                print(f'ud:{ud}')
                 request.session['End'] +=[ran]
-                print(f'ran:{ran}')
-                print(f'r={r}')
                 if r==3:
                     eml=name
-                    print(name)
                     usn=''
                     q=request.session['End']
                     s="SELECT usn FROM sg1 WHERE uuidu='"+q[0]+"';"
@@ -228,7 +220,6 @@ def login(request):
                     for h in range(j):
                         if h>2:
                             usn=usn+pw[h]
-                    print(usn)
                     jo=len(usn)
                     sam=''
                     for io in range(jo):
@@ -304,7 +295,6 @@ def check(name,pwd):
     s="SELECT uuidu FROM  sg1 WHERE "
     s +="eml='"+name+"';"
     pw=db.execute(s).fetchall()
-    print(pw)
     if pw == [] :
         ox=1
         q=''
@@ -312,20 +302,15 @@ def check(name,pwd):
         ch=False
         return ox,q,ran,ch
     else:
-        print('11')
         q=cutter(pw)
-        print(q)
         s="SELECT pwd FROM p1 WHERE "
         s +="uuidu='"+q+"';"
         pw=db.execute(s).fetchall()
-        print('12')
         pas=cutter(pw)
-        print(pas)
         s="SELECT seal FROM  sg1 WHERE "
         s +="eml='"+name+"';"
         pw=db.execute(s).fetchall()
         seal=cutter(pw)
-        print(f'seal:{seal}')
         if pwd==pas:
             s="SELECT verify FROM sg1 WHERE "
             s +="uuidu='"+q+"';"
@@ -379,21 +364,15 @@ def check(name,pwd):
 def signup(request):
     try:
         if request.method=='POST':
-            print('1')
             form=sign1(request.POST)
             if form.is_valid():
-                print('2')
                 us=form.cleaned_data['Username']
                 eml=form.cleaned_data['Email']
                 pwd=form.cleaned_data['Password']
                 eml=eml.lower()
-                print('3')
                 s="SELECT verify FROM  SG1 WHERE "
                 s +="eml='"+eml+"';"
-                print("1step")
                 pw=db.execute(s).fetchall()
-                print(pw)
-                print('4')
                 lav=len(pw)
                 if pw != []:
                     ed=cutter(pw)
@@ -408,21 +387,15 @@ def signup(request):
                             'msg':msg,
                             'form':sign1(),
                         })
-                print('5')
                 emvf=str(random.randint(111111,999999))
                 ud=str(uuid.uuid4())
                 pwd=hash(pwd)
                 no='0'
-                print('6')
                 tim=str(datetime.date.today())
-                print("6")
-                print(ud)
-                print(tim)
                 s="INSERT INTO sg1 (uuidu,usn,eml,seal,timec,logn,verify,vcode) "
                 s+="VALUES ('"+ud+"','"+us+"','"+eml+"',9089,'"+tim+"','"+no+"','NT','"+emvf+"');"
                 db.execute(s)
                 db.commit()
-                print('7')
                 send_mail("Verification code [EnD].","Your EnD verification code |"+emvf+"|.","encryptndecrypt@gmail.com",[eml],    # This is a list
                     fail_silently = False     # Set this to False so that you will be noticed in any exception raised
                     )
@@ -430,7 +403,6 @@ def signup(request):
                 s+="VALUES ('"+ud+"','"+pwd+"');"
                 db.execute(s)
                 db.commit()
-                print('8')
                 msg='User ID created!!'
                 return HttpResponseRedirect(reverse('login'))
             else:
@@ -451,19 +423,13 @@ def signup(request):
         })
 
 def home(request,rname):
-    print('Home')
     q=request.session['End']
-    print(f'uuidu:{q[0]}')
     s="SELECT logc FROM SG1 WHERE uuidu='"+q[0]+"';"
     pw=db.execute(s).fetchall()
     rn=cutter(pw)
-    print(f'user ran:{rn}')
     s="SELECT usn FROM SG1 WHERE uuidu='"+q[0]+"';"
     pw=db.execute(s).fetchall()
     usn=cutter(pw)
-    print(f'username:{usn}')
-    print(f'ran:{q[1]}')
-    print(f'nam:{rname}')
     try:
         io=0
         jo=len(usn)
@@ -474,21 +440,12 @@ def home(request,rname):
             else:
                 sam=sam+usn[io]
         if rn==q[1] and sam==rname:
-            print('1')
             if "Enc" in request.session:
                 del request.session['Enc']
-            print('2')
-            print(q[0])
             noti=reverse1(q)
-            print('3')
             fln,de,notif,eml=userfiles(q)
-            print('4')
             s="SELECT emle,uuide FROM "+de+" WHERE acc='9089';"
             pw=db.execute(s).fetchall()                 #getting those messages which are not seen
-            print('5')
-            print(usn)
-            print(noti)
-            print(pw)
             return render (request,'END/home.html',{
                 'user':sam,
                 'noti':noti,
@@ -917,7 +874,6 @@ def decrypt(request,rname):
                     if w[0] == 0 :
                         sec=request.POST.get('dec')
                         w+=[sec]
-                        print(f'sec:{sec}')
                         s="SELECT mang FROM "+de+" WHERE uuide='"+w[1]+"';"
                         pw=db.execute(s).fetchall()
                         mag=cutter(pw)
@@ -944,11 +900,9 @@ def decrypt(request,rname):
                                 'o':kl
                             })
                         elif w[2]=='uus1':
-                            print(w[0])
                             if w[0] == 0:
                                 o=1
                                 w[0]=[o]
-                                print(w[0])
                                 request.session['Enc']=w
                                 kl=o
                                 noti=reverse1(q)
@@ -962,11 +916,9 @@ def decrypt(request,rname):
                                     'o':kl
                                 })
                             elif w[0] == [1]:
-                                print('hi')
                                 o=0
                                 w[0]=[o]
                                 if form.is_valid():
-                                    print('here')
                                     ke=form.cleaned_data['Key']
                                     s="SELECT sa FROM uus1 WHERE uuidu='"+w[1]+"';"
                                     pw=db.execute(s).fetchall()         #getting keys
@@ -1320,17 +1272,12 @@ def verify(request):
         q=request.session['for']
         if request.method=="POST":
             form=verif(request.POST)
-            print(f'1')
             if form.is_valid():
                 ver=form.cleaned_data['verif']
-                print(f'{ver}')
                 s="SELECT vcode FROM SG1 WHERE eml='"+q[0]+"';"
                 pw=db.execute(s).fetchall()
-                print(pw)
                 pw=emlcutter(pw)
-                print(f'{pw}')
                 if ver==pw:
-                    print(f'pass')
                     r=1
                     msg=':) Email Verified!'
                     s="UPDATE SG1 SET verify='ED' WHERE eml='"+q[0]+"';"
@@ -1704,10 +1651,6 @@ def randomguest(request):
                         mag='ur1'
                         de=''
                         eml=''
-                        print(man)
-                        print(mag)
-                        print(de)
-                        print(eml)
                         dec,emle=rgdecryptxt(man,mag,de,eml)
                         s="SELECT encc FROM ur1 WHERE uuidu='"+man+"';"
                         pw=db.execute(s).fetchall()     #getting the email of the creator
@@ -1748,7 +1691,6 @@ def forgot(request):
             request.session["fog"]=[]
         w=request.session["fog"]
         if request.method == 'POST':
-            print(w[0])
             if w[0]==1:
                 form=forg(request.POST)
             elif w[0]==2:
@@ -1756,7 +1698,6 @@ def forgot(request):
             elif w[0]==3:
                 form=pasm(request.POST)
             else:
-                print('hey')
                 msg=':( Try Again!!'
                 uid=''
                 del request.session["fog"]
@@ -1805,7 +1746,6 @@ def forgot(request):
                     s +="uuidu='"+uid+"';"
                     pw=db.execute(s).fetchall()
                     sa=cutter(pw)
-                    print(sa)
                     if sae==sa:
                         f=3
                         w[0]=f
@@ -2018,7 +1958,6 @@ def encrptxt(text):                     #encrypt text
     for i in range(2):
         t=t*60
         s=n[i+g]+n[i+1+g]
-        print(f's={s}')
         g=g+1
         t=int(s)+t
     tim=str(t)                   #time for key 
@@ -2093,47 +2032,31 @@ def decryptxt(dect,mag,de,eml):
     y=0          #second increment
     fn=''
     emle=''
-    print(1)
     s="SELECT enct FROM "+mag+" WHERE uuidu='"+dect+"';"
     pw=db.execute(s).fetchall()
     enct=cutter(pw)
-    print(dect)
-    print(enct)
     s="SELECT enck FROM "+mag+" WHERE uuidu='"+dect+"';"
     pw=db.execute(s).fetchall()
     enck=cutter(pw)
-    print(2)
-    print(enck)
     s="SELECT enctm FROM "+mag+" WHERE uuidu='"+dect+"';"
     pw=db.execute(s).fetchall()
     enctme=cutter(pw)
-    print(enctme)
     enctm=int(enctme)
     orm=1
-    print(3)
     global eve
     eve=0
-    print('4')
     for i in enct:
-        print(f'e={eve}')
-        print(f'i={i}')
         s=i
-        print(f's={s}')
         if len(s)>1:
             h=len(s)-1
             a=int(s[h])
-            print(f'a={a}')
-            print('hah ha ha ')
         else:
             a=ord(i)
         if a==92:
             eve=eve+1
-            print(f'value:e ={eve}')
-            print(f'value orm: {orm}')
             if orm==1 and eve>=2:
                 orm=2
                 eve=0
-                print(f'e={e}')
         if orm==1:
             div=enck[loop]
             loop=loop+1
@@ -2141,7 +2064,6 @@ def decryptxt(dect,mag,de,eml):
             loop=loop+1
             sm=int(enck[loop])
             loop=loop+1
-            print(loop)
             if div=='a' or div=='A':
                 for j in range(num):
                     a=a+127
@@ -2164,7 +2086,6 @@ def decryptxt(dect,mag,de,eml):
                 g=g*127
                 enctm=(enctm-g)+y
                 a=a-enctm
-                print(a)
                 enc=chr(a)
                 dec=dec+enc
             elif div=='c' or div=='C':
@@ -2191,7 +2112,6 @@ def decryptxt(dect,mag,de,eml):
                 a=a+enctm
                 enc=chr(a)
                 dec=dec+enc
-            print(dec)
             y=y+1
         elif orm==2:
             orm=1
@@ -2219,35 +2139,28 @@ def decryptxt(dect,mag,de,eml):
         s="INSERT INTO "+no+" (msg,status) VALUES ('Message decrypted by "+eml+".','9089');"
         db.execute(s)                           #updating the creators notification
         db.commit()
-    print(dec)
     if emle=='':
         emle=''
     return dec,emle
 
 def cutter(pw):                         #cuts messages recieved via SQL
     pw=str(pw)
-    print(pw)
     j=len(pw)-4
-    print(j)
     k=''
     h=0
     for h in range(j):
         if h>2:
             k=k+pw[h]
-    print(k)
     return k
 
 def emlcutter(pw):                         #cuts messages recieved via SQL
     pw=str(pw)
-    print(pw)
     j=len(pw)-3
-    print(j)
     k=''
     h=0
     for h in range(j):
         if h>1:
             k=k+pw[h]
-    print(k)
     return k
 
 def reverse1(q):                      #reverse the messages
@@ -2258,19 +2171,13 @@ def reverse1(q):                      #reverse the messages
     h=0
     s="SELECT nott FROM fn1 where uuidu='"+q[0]+"';"
     pw=db.execute(s).fetchall()
-    print('1')
     notif=cutter(pw)
-    print(notif)
-    print('2')
     s="SELECT msg FROM "+notif+" WHERE status='9089';"
     pw=db.execute(s).fetchall()
     p=len(pw)
-    print(p)
     if p==0:
-        print('3')
         return lm
     elif p>10:
-        print('4')
         h=p-10
         p=p-h
     for i in range(p):
@@ -2279,11 +2186,8 @@ def reverse1(q):                      #reverse the messages
         elif h>0:
             j=h+(p-(i+1))
         s=pw[j]
-        print(s)
         m=str(s)
-        print(m)
         kl=len(m)-4
-        print(j)
         k=''
         io=0
         for io in range(kl):
@@ -2291,7 +2195,6 @@ def reverse1(q):                      #reverse the messages
                 k=k+m[io]
         lm.append(k)
     notif=''
-    print('5')
     s=''
     h=0
     io=0
@@ -2299,8 +2202,6 @@ def reverse1(q):                      #reverse the messages
     m=''
     k=''
     pw=''
-    print('6')
-    print(lm)
     return lm
 
 def userfiles(q):
@@ -2330,47 +2231,31 @@ def rgdecryptxt(dect,mag,de,eml):
     y=0          #second increment
     fn=''
     emle=''
-    print(1)
     s="SELECT enct FROM "+mag+" WHERE uuidu='"+dect+"';"
     pw=db.execute(s).fetchall()
     enct=cutter(pw)
-    print(dect)
-    print(enct)
     s="SELECT enck FROM "+mag+" WHERE uuidu='"+dect+"';"
     pw=db.execute(s).fetchall()
     enck=cutter(pw)
-    print(2)
-    print(enck)
     s="SELECT enctm FROM "+mag+" WHERE uuidu='"+dect+"';"
     pw=db.execute(s).fetchall()
     enctme=emlcutter(pw)
-    print(enctme)
     enctm=int(enctme)
     orm=1
-    print(3)
     global eve
     eve=0
-    print('4')
     for i in enct:
-        print(f'e={eve}')
-        print(f'i={i}')
         s=i
-        print(f's={s}')
         if len(s)>1:
             h=len(s)-1
             a=int(s[h])
-            print(f'a={a}')
-            print('hah ha ha ')
         else:
             a=ord(i)
         if a==92:
             eve=eve+1
-            print(f'value:e ={eve}')
-            print(f'value orm: {orm}')
             if orm==1 and eve>=2:
                 orm=2
                 eve=0
-                print(f'e={e}')
         if orm==1:
             div=enck[loop]
             loop=loop+1
@@ -2378,7 +2263,6 @@ def rgdecryptxt(dect,mag,de,eml):
             loop=loop+1
             sm=int(enck[loop])
             loop=loop+1
-            print(loop)
             if div=='a' or div=='A':
                 for j in range(num):
                     a=a+127
@@ -2401,7 +2285,6 @@ def rgdecryptxt(dect,mag,de,eml):
                 g=g*127
                 enctm=(enctm-g)+y
                 a=a-enctm
-                print(a)
                 enc=chr(a)
                 dec=dec+enc
             elif div=='c' or div=='C':
@@ -2428,7 +2311,6 @@ def rgdecryptxt(dect,mag,de,eml):
                 a=a+enctm
                 enc=chr(a)
                 dec=dec+enc
-            print(dec)
             y=y+1
         elif orm==2:
             orm=1
@@ -2456,7 +2338,6 @@ def rgdecryptxt(dect,mag,de,eml):
         s="INSERT INTO "+no+" (msg,status) VALUES ('Message decrypted by "+eml+".','9089');"
         db.execute(s)                           #updating the creators notification
         db.commit()
-    print(dec)
     if emle=='':
         emle=''
     return dec,emle
