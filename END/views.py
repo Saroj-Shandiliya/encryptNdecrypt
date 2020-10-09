@@ -1481,6 +1481,8 @@ def guest(request):
                 pw=db.execute(s).fetchall()
                 s="SELECT acc FROM ug1 WHERE gid='"+idg+"';"
                 wp=db.execute(s).fetchall()
+                wp=cutter(wp)
+                io=emlcutter(wp)
                 if pw==[]:
                     msg='Guest id not found!!'
                     return render(request,'END/guest.html',{
@@ -1488,7 +1490,7 @@ def guest(request):
                         'form':gue(),
                         'form1':gueu()
                     })
-                elif wp==[('9862',)]:
+                elif wp=='9862' or io=='9862':
                     msg='Guest id expired!!'
                     return render(request,'END/guest.html',{
                         'msg':msg,
