@@ -1481,8 +1481,11 @@ def guest(request):
                 pw=db.execute(s).fetchall()
                 s="SELECT acc FROM ug1 WHERE gid='"+idg+"';"
                 wp=db.execute(s).fetchall()
+                print(wp)
                 wp=cutter(wp)
                 io=emlcutter(wp)
+                print(wp)
+                print(io)
                 if pw==[]:
                     msg='Guest id not found!!'
                     return render(request,'END/guest.html',{
@@ -1527,7 +1530,7 @@ def guest(request):
                         db.execute(s)                           #updating the creators notification
                         db.commit()
                         ok=1
-                        msg1='Message:'+dec
+                        msg1='> '+dec
                         return render(request,'END/guest.html',{
                             'msg':msg1,
                             'form':gue(),
