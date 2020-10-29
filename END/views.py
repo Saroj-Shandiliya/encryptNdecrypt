@@ -403,8 +403,11 @@ def signup(request):
                 s+="VALUES ('"+ud+"','"+pwd+"');"
                 db.execute(s)
                 db.commit()
-                msg='User ID created!!'
-                return HttpResponseRedirect(reverse('login'))
+                msg='User ID created, Log in!!'
+                return render(request,'END/signup.html',{
+                    'form':sign1(),
+                    'msg':msg,
+                })
             else:
                 msg='Invalid Input'
                 return render(request,'END/signup.html',{
