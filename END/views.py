@@ -557,7 +557,7 @@ def encrypt(request,rname):
                                 print(f"pw= {pw}")
                                 seal=cutter(pw)
                                 print(f"seal= {seal}")
-                                if k == [] or seal=='86':
+                                if k == [] or seal=='86' or k=='' or seal=='':
                                     print("no eml")
                                     msg='No such user with email exist!!'
                                     noti=reverse1(q)
