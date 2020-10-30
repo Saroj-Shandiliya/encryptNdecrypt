@@ -550,12 +550,15 @@ def encrypt(request,rname):
                                 s="SELECT dect FROM fn1 WHERE eml='"+usd+"';"
                                 pw=db.execute(s).fetchall()                #getting file name of the decrypters dec file
                                 k=cutter(pw)
+                                print(f"k= {k}")
                                 s="SELECT seal FROM  SG1 WHERE "
                                 s +="eml='"+usd+"';"
                                 pw=db.execute(s).fetchall()
                                 print(f"pw= {pw}")
                                 seal=cutter(pw)
+                                print(f"seal= {seal}")
                                 if k == [] or seal=='86':
+                                    print("no eml")
                                     msg='No such user with email exist!!'
                                     noti=reverse1(q)
                                     om=0
@@ -571,17 +574,21 @@ def encrypt(request,rname):
                                     'om':t,
                                     'msg':msg
                                     })
+                                print("step1")
                                 ud=str(uuid.uuid1())
                                 fln,de,notif,eml=userfiles(q)
                                 s="INSERT INTO "+fln+" (uuide,timeec,mang,emld,acc) VALUES ('"+ud+"','"+timeec+"','uud1','"+usd+"','9089');"
                                 db.execute(s)                           #inserting into user encfile 
                                 db.commit()
+                                print("step2")
                                 s="INSERT INTO uud1 (uuidu,enct,enck,enctm,emld,acc) VALUES('"+ud+"','"+enc+"','"+key+"','"+tim+"','"+usd+"','9089');"
                                 db.execute(s)                           #inserting in main enc file 
                                 db.commit()
+                                print("step3")
                                 s="INSERT INTO "+k+" (uuide,mang,emle,acc) VALUES ('"+ud+"','uud1','"+eml+"','9089');"
                                 db.execute(s)                               #inserting into the dec userd dec file
                                 db.commit()
+                                print("step4")
                                 dc=''                               
                                 for i in range(len(k)-4):
                                     dc=dc+k[i]
