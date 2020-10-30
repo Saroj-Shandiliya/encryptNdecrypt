@@ -836,7 +836,7 @@ def encrypt(request,rname):
         if "End" in request.session:
             q=request.session['End']
             s=''
-            s +="UPDATE sg1 SET logc='no'"
+            s +="UPDATE sg1 SET Logc='no'"
             s +=" "
             s +="WHERE"
             s +=" "
