@@ -231,7 +231,7 @@ def login(request):
                 elif r==1:
                     if "End" in request.session:
                         del request.session['End']
-                    msg='User ID does not exist!!'
+                    msg='New here, Sign in :)'
                     return render(request,'END/main.html',{
                         'form':Log(),
                         'form1':Log1(),
@@ -553,8 +553,9 @@ def encrypt(request,rname):
                                 s="SELECT seal FROM  SG1 WHERE "
                                 s +="eml='"+usd+"';"
                                 pw=db.execute(s).fetchall()
+                                print(f"pw= {pw}")
                                 seal=cutter(pw)
-                                if k==[] or seal=='86':
+                                if k == [] or seal=='86':
                                     msg='No such user with email exist!!'
                                     noti=reverse1(q)
                                     om=0
